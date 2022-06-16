@@ -28,7 +28,7 @@ const Tables = () => {
   function getData(filteredDate) {
     axios
       .get(
-        "http://127.0.0.1:8000/api/septemberTabel?tanggal=" +
+        "http://127.0.0.1:8000/api/septemberDate?tanggal=" +
           Moment(filteredDate).format("YYYY-MM-DD")
       )
       .then((response) => {
