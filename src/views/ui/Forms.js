@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   Row,
@@ -10,31 +10,83 @@ import {
   FormGroup,
   Label,
   Input,
-  FormText,
-  Modal,
 } from "reactstrap";
-
-import AddFormDemografi from "./Form-Input/AddDemografi";
+import axios from "axios";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Forms = () => {
-  const [show, setShow] = useState(false);
+  const [demografi_id, setDemografiId] = React.useState();
+  const [positif, setPositif] = React.useState();
+  const [sembuh, setSembuh] = React.useState();
+  const [mati, setMati] = React.useState();
+  const [rawat, setRawat] = React.useState();
+  const [Tanggal, setTanggal] = useState(new Date());
+  const [show, setShow] = React.useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const navigate = useNavigate();
+
+  const [data, setData] = useState([]);
+
+  const TabelCovid = {
+    demografi_id,
+    positif,
+    sembuh,
+    mati,
+    rawat,
+    Tanggal,
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  function getData() {
+    axios.get("http://127.0.0.1:8000/api/demografi").then((response) => {
+      setData(response.data);
+      console.log(response.data);
+    });
+  }
+
+  function submit(e) {
+    e.preventDefault();
+    console.log(TabelCovid);
+    axios
+      .post("http://127.0.0.1:8000/api/septemberTabel/input", TabelCovid)
+      .then((res) => {
+        console.log(res);
+        Swal.fire({
+          title: "Data Berhasil di masukan!",
+          text: "Click the Button!",
+          icon: "success",
+          button: "back",
+          // timer: 10000
+        });
+        navigate("/")
+        // window.setTimeout(function(){},10000);
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          title: "This data doesnt input , please repeat again",
+          text: "Click the Button!",
+          icon: "error",
+          button: "back",
+        });
+        window.location.reload();
+      });
+  }
 
   return (
     <Row>
       <CardTitle tag="h6" className="border-bottom p-3 mb-0">
         <i className="bi bi-textarea">Add Data</i>
-        <Button
-          className="btn btn-sucsess"
-          style={{ marginLeft: "10px" }}
-          onClick={handleShow}
-        >
-          Click Here
-        </Button>
       </CardTitle>
 
-      <Modal show={show} onHide={handleClose}>
+      {/* <Modal show={show} onHide={handleClose}>
         <Modal.Header>
           <Modal.Title>Add Data</Modal.Title>
         </Modal.Header>
@@ -48,100 +100,89 @@ const Forms = () => {
             Close
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
 
-      {/* <Col>
+      <Col>
         <Card>
           <CardTitle tag="h6" className="border-bottom p-3 mb-0">
             <i className="bi bi-bell me-2"></i>
-            Form Example
+            Form Input Data of Covid-19 Spread
           </CardTitle>
           <CardBody>
             <Form>
               <FormGroup>
-                <Label for="exampleEmail">Email</Label>
+                <Label>Input Positive Case</Label>
                 <Input
-                  id="exampleEmail"
-                  name="email"
-                  placeholder="with a placeholder"
-                  type="email"
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label for="examplePassword">Password</Label>
-                <Input
-                  id="examplePassword"
-                  name="password"
-                  placeholder="password placeholder"
-                  type="password"
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label for="exampleSelect">Select</Label>
-                <Input id="exampleSelect" name="select" type="select">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </Input>
-              </FormGroup>
-              <FormGroup>
-                <Label for="exampleSelectMulti">Select Multiple</Label>
-                <Input
-                  id="exampleSelectMulti"
-                  multiple
-                  name="selectMulti"
+                  onChange={(e) => setDemografiId(e.target.value)}
                   type="select"
                 >
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                  <option>Choice Distric Area</option>
+                  {data.map((row) => (
+                    <option value={row.id_wilayah}>{row.kecamatan}</option>
+                  ))}
                 </Input>
               </FormGroup>
               <FormGroup>
-                <Label for="exampleText">Text Area</Label>
-                <Input id="exampleText" name="text" type="textarea" />
+                <Label>Input Positif Case Summary of covid-19 virus</Label>
+                <Input
+                  type="text"
+                  placeholder="input here"
+                  onChange={(e) => setPositif(e.target.value)}
+                />
               </FormGroup>
+
               <FormGroup>
-                <Label for="exampleFile">File</Label>
-                <Input id="exampleFile" name="file" type="file" />
-                <FormText>
-                  This is some placeholder block-level help text for the above
-                  input. It's a bit lighter and easily wraps to a new line.
-                </FormText>
+                <Label>Input death Case Summary of covid-19 virus</Label>
+                <Input
+                  type="text"
+                  placeholder="input here"
+                  onChange={(e) => setMati(e.target.value)}
+                />
               </FormGroup>
-              <FormGroup tag="fieldset">
-                <legend>Radio Buttons</legend>
-                <FormGroup check>
-                  <Input name="radio1" type="radio" />{" "}
-                  <Label check>
-                    Option one is this and that—be sure to include why it's
-                    great
-                  </Label>
-                </FormGroup>
-                <FormGroup check>
-                  <Input name="radio1" type="radio" />{" "}
-                  <Label check>
-                    Option two can be something else and selecting it will
-                    deselect option one
-                  </Label>
-                </FormGroup>
-                <FormGroup check disabled>
-                  <Input disabled name="radio1" type="radio" />{" "}
-                  <Label check>Option three is disabled</Label>
-                </FormGroup>
+
+              <FormGroup>
+                <Label>Input On Treatment Case Summary of covid-19 virus</Label>
+                <Input
+                  type="text"
+                  placeholder="input here"
+                  onChange={(e) => setRawat(e.target.value)}
+                />
               </FormGroup>
-              <FormGroup check>
-                <Input type="checkbox" /> <Label check>Check me out</Label>
+
+              <FormGroup>
+                <Label>Input Cure Case Summary of covid-19 virus</Label>
+                <Input
+                  type="text"
+                  placeholder="input here"
+                  onChange={(e) => setSembuh(e.target.value)}
+                />
               </FormGroup>
-              <Button>Submit</Button>
+
+              <FormGroup>
+                <Label>Input Date</Label>
+                <DatePicker
+                  selected={Tanggal}
+                  onChange={(tanggal) => setTanggal(tanggal)}
+                  dateFormat="dd-MM-yyyy"
+                  peekNextMonth
+                  showMonthDropdown
+                  showYearDropdown
+                  dropdownMode="select"
+                />
+              </FormGroup>
+
+              <Button
+                variant="success"
+                size="sg"
+                style={{ width: "10vw" }}
+                onClick={submit}
+              >
+                Submit Data
+              </Button>
             </Form>
           </CardBody>
         </Card>
-      </Col> */}
+      </Col>
     </Row>
   );
 };

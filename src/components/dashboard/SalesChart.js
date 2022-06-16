@@ -116,6 +116,10 @@ const SalesChart = () => {
         name: "Rawat",
         data: dataRawat,
       },
+      {
+        name: "Mati",
+        data: dataMati,
+      },
     ],
     options: {
       chart: {

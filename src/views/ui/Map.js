@@ -1,14 +1,17 @@
-import { Circle, MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import {
+  Circle,
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  Polygon,
+} from "react-leaflet";
 import React, { useState, useEffect } from "react";
 import {
   Col,
-  Row,
   Card,
-  CardBody,
-  CardSubtitle,
   CardTitle,
   Table,
-  CardText,
   Button,
   Modal,
   ModalBody,
@@ -20,6 +23,7 @@ import DatePicker from "react-datepicker";
 import axios from "axios";
 import Moment from "moment";
 import { GoEye } from "react-icons/go";
+import  statesData  from "../batas-data.json";
 
 function PopupExample() {
   const [september, setSeptember] = useState([]);
@@ -30,6 +34,15 @@ function PopupExample() {
   useEffect(() => {
     getDataSeptember();
   }, []);
+
+  // function getDataFaskes(){
+  //   axios
+  //     .get(
+  //       "http://127.0.0.1:8000/api/faskesTabel")
+  //     .then((response) => {
+  //       console.log(response.data);
+  //     });
+  // }
 
   function getDataSeptember(filteredDate) {
     axios
@@ -105,7 +118,7 @@ function PopupExample() {
   const maxMati = Math.max(...dataMati);
 
   // Coloring The Circle
-  const fillYellowOptions = { Color: "blue" };
+  const fillYellowOptions = { fillColor: "orange" };
   const fillRedOptions = { fillColor: "red" };
   const greenOptions = { color: "green", fillColor: "green" };
 
@@ -128,18 +141,64 @@ function PopupExample() {
           dropdownMode="select"
         />
       </CardTitle>
+
       <MapContainer
-        center={[-7.22369, 112.775]}
-        zoom={13}
+        center={[-7.253477219308051, 112.7174872482906]}
+        zoom={11}
         scrollWheelZoom={true}
       >
         <TileLayer
-          url="https://api.maptiler.com/maps/bright/256/{z}/{x}/{y}.png?key=lpeLyfYWXTj0KWkD2Ig6"
-          attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+          // url="https://api.maptiler.com/maps/bright/256/{z}/{x}/{y}.png?key=lpeLyfYWXTj0KWkD2Ig6"
+          // attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
 
-          // attribution='&copy; <a href="https://www.openstreetmap.org/relation/8225862">OpenStreetMap</a> contributors'
-          // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/relation/8225862">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+
+        {statesData.features.map((state) => {
+          const coordinates = state.geometry.coordinates[0][0].map((item) => [
+            item[1],
+            item[0],
+          ]);
+          return (
+            <Polygon
+              pathOptions={{
+                fillColor: "#FD8D3C",
+                fillOpacity: 0.7,
+                weight: 2,
+                opacity: 1,
+                dashArray: 3,
+                color: "white",
+              }}
+              positions={coordinates}
+              eventHandlers={{
+                mouseover: (e) => {
+                  const layer = e.target;
+                  layer.setStyle({
+                    dashArray: "",
+                    fillColor: "#BD0026",
+                    fillOpacity: 0.7,
+                    weight: 2,
+                    opacity: 1,
+                    color: "white",
+                  });
+                },
+                mouseout: (e) => {
+                  const layer = e.target;
+                  layer.setStyle({
+                    fillOpacity: 0.7,
+                    weight: 2,
+                    dashArray: "3",
+                    color: "white",
+                    fillColor: "#FD8D3C",
+                  });
+                },
+                click: (e) => {},
+              }}
+            />
+          );
+        })}
+
         {september.map((row) =>
           (row.positif >= 1000) & (row.positif <= 2000) ? (
             <Circle
@@ -164,6 +223,7 @@ function PopupExample() {
                   Positif Case : {row.positif} <br />
                   Cure Case : {row.sembuh} <br />
                   Death Case : {row.mati} <br />
+                  OnTreatment Case : {row.rawat} <br />
                   <Button variant="success" size="sm" onClick={handleShow}>
                     <GoEye style={{ marginRight: "3px" }} />
                     Show The Analysis
@@ -194,10 +254,7 @@ function PopupExample() {
                   Positif Case : {row.positif} <br />
                   Cure Case : {row.sembuh} <br />
                   Death Case : {row.mati} <br />
-                  <Button variant="success" size="sm" onClick={handleShow}>
-                    <GoEye style={{ marginRight: "3px" }} />
-                    Show The Analysis
-                  </Button>
+                  OnTreatment Case : {row.rawat} <br />
                 </Popup>
               </Marker>
             </Circle>
@@ -224,6 +281,7 @@ function PopupExample() {
                   Positif Case : {row.positif} <br />
                   Cure Case : {row.sembuh} <br />
                   Death Case : {row.mati} <br />
+                  OnTreatment Case : {row.rawat} <br />
                   <Button variant="success" size="sm" onClick={handleShow}>
                     <GoEye style={{ marginRight: "3px" }} />
                     Show The Analysis
@@ -260,6 +318,42 @@ function PopupExample() {
           </Button>
         </ModalFooter>
       </Modal>
+
+      <Card>
+        <Table>
+          <thead>
+            <tr>
+              <th>District Area</th>
+              <th>Level of Area with Seeing Summary of on treatment</th>
+            </tr>
+          </thead>
+          <tbody>
+            {september.map((row) =>
+              row.rawat < 1 ? (
+                <tr>
+                  <td>{row.demografi.kecamatan}</td>
+                  <td>Level 1</td>
+                </tr>
+              ) : row.rawat >= 2 ? (
+                <tr>
+                  <td>{row.demografi.kecamatan}</td>
+                  <td>Level 2</td>
+                </tr>
+              ) : row.rawat >= 10 ? (
+                <tr>
+                  <td>{row.demografi.kecamatan}</td>
+                  <td>Level 3</td>
+                </tr>
+              ) : (
+                <tr>
+                  <td>{row.demografi.kecamatan}</td>
+                  <td>Level 4</td>
+                </tr>
+              )
+            )}
+          </tbody>
+        </Table>
+      </Card>
     </Col>
   );
 }

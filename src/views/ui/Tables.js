@@ -1,22 +1,31 @@
 import React, { useState, useEffect } from "react";
 import ProjectTables from "../../components/dashboard/ProjectTable";
-import { Row, Col, Card, CardTitle, CardBody } from "reactstrap";
+import {
+  Row,
+  Col,
+  Card,
+  CardTitle,
+  CardBody,
+  Button,
+  CardGroup,
+} from "reactstrap";
 import DatePicker from "react-datepicker";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import axios from "axios";
 import Moment from "moment";
+import Swal from "sweetalert2";
 
 const Tables = () => {
   const [september, setSeptember] = useState([]);
   const [date, setDate] = React.useState(new Date());
 
   useEffect(() => {
-    getDataSeptember();
+    getData();
   }, []);
 
-  function getDataSeptember(filteredDate) {
+  function getData(filteredDate) {
     axios
       .get(
         "http://127.0.0.1:8000/api/septemberTabel?tanggal=" +
@@ -28,8 +37,24 @@ const Tables = () => {
       });
   }
 
+  function hapusData(id) {
+    console.log(id);
+    Swal.fire({
+      title: "Data Berhasil di hapus!",
+      text: "Click the Button!",
+      icon: "success",
+      button: "back",
+    });
+    axios
+      .delete("http://127.0.0.1:8000/api/septemberTabel/delete/"+id)
+      .then((response) => {
+        getData();
+      });
+  }
+
   let districtFilter;
   let areaFilter;
+  let temp;
 
   const columns = [
     {
@@ -63,6 +88,29 @@ const Tables = () => {
     { dataField: "sembuh", text: "Cure", sort: true },
     { dataField: "mati", text: "Death", sort: true },
     { dataField: "rawat", text: "On Treatment ", sort: true },
+
+    {
+      dataField: "id_table",
+      text: "Action",
+      formatter: (cellContent,row) => {
+        return (
+          <CardGroup>
+            <Button
+              color="danger"
+              className="mb-1 m-lg-1 w-15"
+              onClick={() => hapusData(row.id_table)}
+            >
+              <i class="bi bi-pen"></i>
+              Hapus
+            </Button>
+            <Button color="success" className="m-lg-1 w-15">
+              <i class="bi bi-cloud-download"></i>
+              Update
+            </Button>
+          </CardGroup>
+        );
+      },
+    },
   ];
 
   return (
@@ -82,7 +130,7 @@ const Tables = () => {
             <DatePicker
               selected={date}
               onChange={(tanggal) => {
-                getDataSeptember(tanggal);
+                getData(tanggal);
                 setDate(tanggal);
               }}
               dateFormat="dd-MMM-yyyy"
@@ -95,7 +143,7 @@ const Tables = () => {
           <CardBody className="">
             <BootstrapTable
               hover
-              keyField="id_tableSep"
+              keyField={"id_table"}
               data={september}
               columns={columns}
               filter={filterFactory()}
