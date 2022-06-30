@@ -15,14 +15,14 @@ import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const Forms = () => {
-  const [demografi_id, setDemografiId] = React.useState();
-  const [positif, setPositif] = React.useState();
-  const [sembuh, setSembuh] = React.useState();
-  const [mati, setMati] = React.useState();
-  const [rawat, setRawat] = React.useState();
+const FormUpdate = (...props) => {
+  const [demografi_id, setDemografiId] = React.useState("");
+  const [positif, setPositif] = React.useState("");
+  const [sembuh, setSembuh] = React.useState("");
+  const [mati, setMati] = React.useState("");
+  const [rawat, setRawat] = React.useState("");
   const [Tanggal, setTanggal] = useState(new Date());
   const [show, setShow] = React.useState(false);
   const handleClose = () => setShow(false);
@@ -41,6 +41,26 @@ const Forms = () => {
   };
 
   useEffect(() => {
+    // setIdTableSep(localStorage.getItem('id_tableSep'));
+    // setDemografiId(localStorage.getItem('demografi_id'));
+    // setPositif(localStorage.getItem('positif'));
+    // setSembuh(localStorage.getItem('sembuh'));
+    // setMati(localStorage.getItem('mati'));
+    // setRawat(localStorage.getItem('rawat'));
+    // setTanggal(localStorage.getItem('Tanggal'));
+    axios
+      .get(
+        "http://127.0.0.1:8000/api/september_show/" + props.match?.params?.id
+      )
+      .then((response) => {
+        console.log(props.match?.params?.id);
+        console.log("data masuk ", response.data[0]);
+        // setDemografiId(response.data.demografi_id);
+        // setPositif(response.data.positif);
+        // setSembuh(response.data.sembuh);
+        // setMati(response.data.mati);
+        // setRawat(response.data.rawat);
+      });
     getData();
   }, []);
 
@@ -55,17 +75,21 @@ const Forms = () => {
     e.preventDefault();
     console.log(TabelCovid);
     axios
-      .post("http://127.0.0.1:8000/api/septemberTabel/input", TabelCovid)
+      .put(
+        "http://127.0.0.1:8000/api/septemberTabel/update/" +
+          props.match?.params?.id,
+        TabelCovid
+      )
       .then((res) => {
         console.log(res);
         Swal.fire({
-          title: "Data Berhasil di masukan!",
+          title: "Data Berhasil di Update",
           text: "Click the Button!",
           icon: "success",
           button: "back",
           // timer: 10000
         });
-        navigate("/")
+        navigate("/");
         // window.setTimeout(function(){},10000);
       })
       .catch((error) => {
@@ -111,7 +135,7 @@ const Forms = () => {
           <CardBody>
             <Form>
               <FormGroup>
-                <Label>Input Positive Case</Label>
+                <Label>Input District Area</Label>
                 <Input
                   onChange={(e) => setDemografiId(e.target.value)}
                   type="select"
@@ -187,4 +211,4 @@ const Forms = () => {
   );
 };
 
-export default Forms;
+export default FormUpdate;

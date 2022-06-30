@@ -8,8 +8,8 @@ const FullLayout = () => {
     <main>
       <div className="pageWrapper d-lg-flex">
         {/********Sidebar**********/}
-        <aside className="sidebarArea shadow" id="sidebarArea">
-          <Sidebar />
+        <aside className="sidebarArea shadow" id="sidebarArea" color="secondary">
+          <Sidebar  />
         </aside>
         {/********Content Area**********/}
 
@@ -17,7 +17,7 @@ const FullLayout = () => {
           {/********header**********/}
           <Header />
           {/********Middle Content**********/}
-          <Container className="p-4 wrapper" fluid>
+          <Container className="p-4 wrapper" fluid color="secondary">
             <Outlet />
           </Container>
         </div>

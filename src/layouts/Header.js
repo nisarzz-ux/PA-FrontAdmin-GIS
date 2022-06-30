@@ -28,7 +28,7 @@ const Header = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
   return (
-    <Navbar color="success" dark expand="md">
+    <Navbar color="primary" dark expand="md">
       <div className="d-flex align-items-center">
         <NavbarBrand href="/" className="d-lg-none"></NavbarBrand>
         <Button
@@ -79,7 +79,7 @@ const Header = () => {
           </UncontrolledDropdown> */}
         </Nav>
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-          <DropdownToggle color="success">
+          <DropdownToggle color="primary">
             Any Can Help You ?
             <img
               src={user1}

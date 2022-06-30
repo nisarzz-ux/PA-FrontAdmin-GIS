@@ -1,122 +1,76 @@
 import {
   Card,
-  CardImg,
   CardText,
-  CardBody,
   CardTitle,
-  CardSubtitle,
-  CardGroup,
-  Button,
   Row,
   Col,
 } from "reactstrap";
-import Blog from "../../components/dashboard/Blog";
-import bg1 from "../../assets/images/bg/bg1.jpg";
-import bg2 from "../../assets/images/bg/bg2.jpg";
-import bg3 from "../../assets/images/bg/bg3.jpg";
-import bg4 from "../../assets/images/bg/bg4.jpg";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 
-const BlogData = [
-  {
-    image: bg1,
-    title: "This is simple blog",
-    subtitle: "2 comments, 1 Like",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-    btnbg: "primary",
-  },
-  {
-    image: bg2,
-    title: "Lets be simple blog",
-    subtitle: "2 comments, 1 Like",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-    btnbg: "primary",
-  },
-  {
-    image: bg3,
-    title: "Don't Lamp blog",
-    subtitle: "2 comments, 1 Like",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-    btnbg: "primary",
-  },
-  {
-    image: bg4,
-    title: "Simple is beautiful",
-    subtitle: "2 comments, 1 Like",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-    btnbg: "primary",
-  },
-];
 
 const Cards = () => {
+  useEffect(() => {
+    getDemografi();
+  }, []);
+  const [demografi, setDemografi] = useState([]);
+
+  function getDemografi() {
+    axios.get("http://127.0.0.1:8000/api/demografi").then((response) => {
+      console.log(response.data);
+      setDemografi(response.data);
+    });
+  }
   return (
     <div>
-      {/* --------------------------------------------------------------------------------*/}
-      {/* Card-1*/}
-      {/* --------------------------------------------------------------------------------*/}
-      <h5 className="mb-3">Basic Card</h5>
       <Row>
-        {BlogData.map((blg, index) => (
-          <Col sm="6" lg="6" xl="3" key={index}>
-            <Blog
-              image={blg.image}
-              title={blg.title}
-              subtitle={blg.subtitle}
-              text={blg.description}
-              color={blg.btnbg}
-            />
-          </Col>
-        ))}
-      </Row>
-      {/* --------------------------------------------------------------------------------*/}
-      {/* Card-2*/}
-      {/* --------------------------------------------------------------------------------*/}
-       <Row>
-        <h5 className="mb-3 mt-3">Alignment Text</h5>
-        <Col md="6" lg="4">
-          <Card body>
-            <CardTitle tag="h5">Special Title Treatment</CardTitle>
-            <CardText>
-              With supporting text below as a natural lead-in to additional
-              content.
-            </CardText>
-            <div>
-              <Button color="light-warning">Go somewhere</Button>
-            </div>
-          </Card>
-        </Col>
-        <Col md="6" lg="4">
-          <Card body className="text-center">
-            <CardTitle tag="h5">Special Title Treatment</CardTitle>
-            <CardText>
-              With supporting text below as a natural lead-in to additional
-              content.
-            </CardText>
-            <div>
-              <Button color="light-danger">Go somewhere</Button>
-            </div>
-          </Card>
-        </Col>
-        <Col md="6" lg="4">
-          <Card body className="text-end">
-            <CardTitle tag="h5">Special Title Treatment</CardTitle>
-            <CardText>
-              With supporting text below as a natural lead-in to additional
-              content.
-            </CardText>
-            <div>
-              <Button color="light-success">Go somewhere</Button>
-            </div>
-          </Card>
-        </Col>
-      </Row> 
-      {/* --------------------------------------------------------------------------------*/}
-      {/* Card-2*/}
-      {/* --------------------------------------------------------------------------------*/}
-      {/* <Row>
+        {/* --------------------------------------------------------------------------------*/}
+        {/* Card-1*/}
+        {/* --------------------------------------------------------------------------------*/}
+        {/* --------------------------------------------------------------------------------*/}
+        {/* Card-2*/}
+        {/* --------------------------------------------------------------------------------*/}
+        <Row>
+          <h5 className="mb-3 mt-3">District of Demografy Table</h5>
+          {demografi.map((row) =>
+            row.penduduk_laki + row.penduduk_wanita < 70000 ? (
+              <Col md="6" lg="4">
+                <Card body>
+                  <CardTitle tag="h5">{row.kecamatan}</CardTitle>
+                  <CardText>
+                    Men Population = {row.penduduk_laki} <br />
+                    Women Population = {row.penduduk_wanita} <br />
+                    Population Total = {row.penduduk_laki +
+                      row.penduduk_wanita}{" "}
+                    <br />
+                    Area = {row.bagian_wilayah} <br />
+                    <i class="bi bi-star-fill"
+                    color="succsess"></i>Indication Risk is so low
+                  </CardText>
+                </Card>
+              </Col>
+            ) : (
+              <Col md="6" lg="4">
+                <Card body>
+                  <CardTitle tag="h5">{row.kecamatan}</CardTitle>
+                  <CardText>
+                    Men Population = {row.penduduk_laki} <br />
+                    Women Population = {row.penduduk_wanita} <br />
+                    Population Total = {row.penduduk_laki +
+                      row.penduduk_wanita}{" "}
+                    <br />
+                    Area = {row.bagian_wilayah} <br />
+                    <i class="bi bi-radioactive"></i>Indication Risk is so High
+                  </CardText>
+                </Card>
+              </Col>
+            )
+          )}
+        </Row>
+        {/* --------------------------------------------------------------------------------*/}
+        {/* Card-2*/}
+        {/* --------------------------------------------------------------------------------*/}
+        {/* <Row>
         <h5 className="mb-3 mt-3">Colored Card</h5>
         <Col md="6" lg="3">
           <Card body color="primary" inverse>
@@ -265,6 +219,7 @@ const Cards = () => {
           </CardGroup>
         </Col>
       </Row> */}
+      </Row>
     </div>
   );
 };

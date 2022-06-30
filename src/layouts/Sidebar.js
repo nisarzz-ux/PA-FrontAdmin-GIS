@@ -1,38 +1,25 @@
 import { Button, CardTitle, Nav, NavItem } from "reactstrap";
-import Logo from "./Logo";
 import { Link, useLocation } from "react-router-dom";
 
 const navigation = [
   {
     title: "Main Menu",
     href: "/starter",
-    icon: "bi bi-speedometer2",
+    icon: "bi bi-map",
   },
-  // {
-  //   title: "Alert",
-  //   href: "/alerts",
-  //   icon: "bi bi-bell",
-  // },
-  // {
-  //   title: "Badges",
-  //   href: "/badges",
-  //   icon: "bi bi-patch-check",
-  // },
-  // {
-  //   title: "Buttons",
-  //   href: "/buttons",
-  //   icon: "bi bi-hdd-stack",
-  // },
+
+  {
+    title: "North Surabaya Map",
+    href: "/NorthSurabaya",
+    icon: "bi bi-map",
+  },
+  
   {
     title: "District Information",
     href: "/cards",
     icon: "bi bi-card-text",
   },
-  // {
-  //   title: "Grid",
-  //   href: "/grid",
-  //   icon: "bi bi-columns",
-  // },
+  
   {
     title: "Table",
     href: "/table",
@@ -43,6 +30,12 @@ const navigation = [
     href: "/forms",
     icon: "bi bi-textarea-resize",
   },
+
+  // {
+  //   title: "Form-Update",
+  //   href: "/editData/",
+  //   icon: "bi bi-textarea-resize",
+  // },
   // {
   //   title: "Breadcrumbs",
   //   href: "/breadcrumbs",
@@ -55,15 +48,17 @@ const navigation = [
   },
 
   {
-    title: "Map",
-    href: "/Map",
-    icon: "bi bi-map",
+    title: "Line Chart Analysist",
+    href: "/LineChart",
+    icon: "bi bi-speedometer2",
   },
 
   // {
   //   title: "AddDemografiForm",
   //   href: "/AddForm",
   //   icon: "bi bi-textarea",
+  // icon: "bi bi-speedometer2",
+
   // }
 ];
 
@@ -77,7 +72,9 @@ const Sidebar = () => {
     <div className="p-3">
       <div className="d-flex align-items-center">
         <CardTitle tag="h6" className="border-bottom p-5 mb-0">
-          System Analysis
+        <i 
+        class="bi bi-calendar3-week-fill"
+        ></i>  System Analysis
         </CardTitle>
         <Button
           close
@@ -86,8 +83,9 @@ const Sidebar = () => {
           onClick={() => showMobilemenu()}
         ></Button>
       </div>
-      <div className="pt-4 mt-2">
-        <Nav vertical className="sidebarNav">
+      <div className="pt-4 mt-2" color="#6f9ee8">
+        <Nav vertical className="sidebarNav"
+        >
           {navigation.map((navi, index) => (
             <NavItem key={index} className="sidenav-bg">
               <Link

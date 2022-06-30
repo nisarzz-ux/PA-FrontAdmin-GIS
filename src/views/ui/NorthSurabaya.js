@@ -1,8 +1,16 @@
-import { MapContainer, Marker, Popup, TileLayer, Polygon } from "react-leaflet";
+import {
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  Polygon,
+  withLeaflet,
+} from "react-leaflet";
 import React, { useState, useEffect } from "react";
 import Legend from "./Legend";
 import {
   Col,
+  CardSubtitle,
   CardTitle,
   Table,
   Button,
@@ -11,14 +19,6 @@ import {
   ModalHeader,
   ModalFooter,
   Row,
-  ButtonDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Breadcrumb,
-  BreadcrumbItem,
-  Card,
-  CardBody,
 } from "reactstrap";
 import "./File-Map/Map.css";
 import DatePicker from "react-datepicker";
@@ -26,11 +26,8 @@ import axios from "axios";
 import Moment from "moment";
 import L from "leaflet";
 import { GoEye } from "react-icons/go";
-
 import statesData from "./File-Map/JsonMap/28-tes.json";
 import Bangunan from "./File-Map/JsonMap/bangunan.json";
-import Pemukiman from "./File-Map/JsonMap/Pemukiman.json";
-
 import Chart from "react-apexcharts";
 import "leaflet/dist/leaflet.css";
 import LeafletRuler from "./File-Map/LeafletRuler";
@@ -39,50 +36,34 @@ const PopupExample = () => {
   const [september, setSeptember] = useState([]);
   const [date, setDate] = React.useState(new Date());
   const [modal, setModal] = React.useState(false);
-
-  //View Dropdown Menu
-  const [dropdownOpen, setOpen] = React.useState(false);
-  const toggleButton = () => setOpen(!dropdownOpen);
-
-  // View Analyst Recap or Not
   const [isShown, setIsShown] = React.useState(false);
+  const toggle = () => setModal(!modal);
 
-  // View Polygon or Not
-  const [isPolygonShow, setPolygonShow] = React.useState(false);
+  // Custom Icon on React-Leaflet
+  const customIcon = new L.Icon({
+    iconUrl: require("./iconPlus.png").default,
+    iconSize: new L.Point(15, 15),
+  });
 
-  //View Polygon of Where Virus Spread
-  const [isPolygonSpread, setPolygonShowSpread] = React.useState(false);
+  const ripIcon = new L.Icon({
+    iconUrl: require("./icons8-death-64.png").default,
+    iconSize: new L.Point(15, 15),
+  });
+ 
+  //Show and Close Menu
+  const [isShowNorthMap,setShowNorthMap] = React.useState(false);
+  const handleClickNorthMap = (event) => {
+    setShowNorthMap((current) => !current);
+  }
+
+  useEffect(() => {
+    getDataSeptember();
+  }, []);
 
   //Show and Close Menu
   const handleClick = (event) => {
     setIsShown((current) => !current);
   };
-
-  //Show and Close Menu
-  const handleClickPolygon = (event) => {
-    setPolygonShow((current) => !current);
-  };
-
-  //Show and Close Menu
-  const handleClickPolygonSperead = (event) => {
-    setPolygonShowSpread((current) => !current);
-  };
-
-  const toggle = () => setModal(!modal);
-  // Custom Icon on React-Leaflet
-  const customIcon = new L.Icon({
-    iconUrl: require("./icons8-health-64.png").default,
-    iconSize: new L.Point(25, 25),
-  });
-
-  const ripIcon = new L.Icon({
-    iconUrl: require("./icons8-death-64.png").default,
-    iconSize: new L.Point(20, 20),
-  });
-
-  useEffect(() => {
-    getDataSeptember();
-  }, []);
 
   function getDataSeptember(filteredDate) {
     axios
@@ -118,6 +99,12 @@ const PopupExample = () => {
     // else if (temp >= 7000 && temp < 9000) return "#3080ff";
     // else return "#f0868d";
   }
+
+  const selectOption = {
+    0: "good",
+    1: "Bad",
+    2: "unknown",
+  };
 
   // Using Modal
   const [show, setShow] = useState(false);
@@ -256,22 +243,6 @@ const PopupExample = () => {
 
   return (
     <div>
-      <Row>
-        <Col>
-          <Card>
-            <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-              <i className="bi bi-link me-2"> </i>
-              Basic Breadcrumbs
-            </CardTitle>
-            <CardBody className="">
-              <Breadcrumb>
-                <BreadcrumbItem active>Surabaya City Map</BreadcrumbItem>
-              </Breadcrumb>
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
-
       <Row style={{ margin: "auto" }}>
         <CardTitle
           tag="h6"
@@ -297,58 +268,44 @@ const PopupExample = () => {
 
       <Row>
         <Col>
-          <CardTitle
-            tag="h6"
-            className="border-bottom p-3 m-auto"
-            style={{ marginTop: "10px" }}
-          >
-            {" "}
-            Choice The Analysist
-          </CardTitle>
-          {/* <FormGroup>
-            <Input type="select">
-              <option>Choice item</option>
-              <option onClick={handleClickPolygon} />
-           </Input> 
-          </FormGroup> */}
-          <ButtonDropdown
-            isOpen={dropdownOpen}
-            toggle={toggleButton}
-            style={{ marginTop: "10px", height: "auto" }}
-          >
-            <DropdownToggle caret color="info">
-              <i class="bi bi-activity"></i> Item Analysist This map
-            </DropdownToggle>
-            <DropdownMenu>
-              <DropdownItem onClick={handleClickPolygon}>
-                Where Is Polygon zone of District on Surabaya ?
-              </DropdownItem>
-              <DropdownItem onClick={handleClickPolygonSperead}>
-                {" "}
-                Where is the Potential Place for the Covid-19 Virus to Spread in
-                the City of Surabaya?
-              </DropdownItem>
-              <DropdownItem divider />
-            </DropdownMenu>
-          </ButtonDropdown>
-
-          {isPolygonSpread && (
-            <Table>
-              <thead>
-                <tr>
-                  <th>Legend Name</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Bangunan</td>
-                  <td>{Bangunan.features.length}</td>
-                </tr>
-              </tbody>
-            </Table>
-          )}
+          <Table striped style={{ height: "auto", width: "auto" }}>
+            <thead>
+              <tr>
+                <th>Element Name Legend</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody style={{ marginBottom: "auto" }}>
+              <tr>
+                <td>Gedung / Bangunan </td>
+                <td>{Bangunan.features.length}</td>
+              </tr>
+              {/* {september.map((row) =>
+                (row.positif >= 0) & (row.positif < 1000) ? (
+                  <tr>
+                    <td>{row.demografi.kecamatan}</td>
+                    <td>This Area of Level 1 of PPKM</td>
+                  </tr>
+                ) : (row.positif >= 1000) & (row.positif < 3000) ? (
+                  <tr>
+                    <td>{row.demografi.kecamatan}</td>
+                    <td>This Area of Level 2 of PPKM</td>
+                  </tr>
+                ) : (row.positif >= 3000) & (row.positif < 5000) ? (
+                  <tr>
+                    <td>{row.demografi.kecamatan}</td>
+                    <td>This Area of Level 3 of PPKM</td>
+                  </tr>
+                ) : (
+                  <tr>
+                    <td>{row.demografi.kecamatan}</td>
+                    <td>This Area of Level 4 of PPKM</td>
+                  </tr>
+                )
+              )} */}
+            </tbody>
+          </Table>
         </Col>
-
         <Col>
           <MapContainer
             center={[-7.253477219308051, 112.7174872482906]}
@@ -357,11 +314,11 @@ const PopupExample = () => {
             whenCreated={setMap}
           >
             <TileLayer
-              url="https://api.maptiler.com/maps/bright/256/{z}/{x}/{y}.png?key=lpeLyfYWXTj0KWkD2Ig6"
-              attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+              // url="https://api.maptiler.com/maps/bright/256/{z}/{x}/{y}.png?key=lpeLyfYWXTj0KWkD2Ig6"
+              // attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
 
-              // attribution='&copy; <a href="https://www.openstreetmap.org/relation/8225862">OpenStreetMap</a> contributors'
-              // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/relation/8225862">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
             <LeafletRuler />
@@ -376,35 +333,6 @@ const PopupExample = () => {
                 dashArray: 3,
               }}
             /> */}
-
-            {isPolygonShow &&
-              statesData.features.map((state) => {
-                const coordinates = state.geometry.coordinates[0][0].map(
-                  (item) => [item[1], item[0]]
-                );
-
-                return (
-                  <Polygon
-                    pathOptions={{
-                      fillColor: getColor(state.properties.Wilayah),
-                      fillOpacity: 0.7,
-                      weight: 2,
-                      opacity: 1,
-                      dashArray: 3,
-                      color: "white",
-                    }}
-                    positions={coordinates}
-                  >
-                    <Popup>
-                      District : {state.properties.KECAMATAN}
-                      <br />
-                      Area : {state.properties.Wilayah}
-                      <br />
-                      Zone : {state.properties.PERIMETER} Km / Square
-                    </Popup>
-                  </Polygon>
-                );
-              })}
 
             {/* {statesData.features.map((state) => {
               const coordinates = state.geometry.coordinates[0][0].map(
@@ -434,51 +362,7 @@ const PopupExample = () => {
               );
             })} */}
 
-            {isPolygonSpread &&
-              Pemukiman.features.map((state) => {
-                const titik = state.geometry.coordinates[0][0].map((item) => [
-                  item[1],
-                  item[0],
-                ]);
-                return (
-                  <Polygon
-                    pathOptions={{
-                      color: "Blue",
-                      fillOpacity: 0.7,
-                      weight: 2,
-                      opacity: 12,
-                      dashArray: 3,
-                    }}
-                    positions={titik}
-                  >
-                    <Popup>Build Name : {state.properties.REMARK}</Popup>
-                  </Polygon>
-                );
-              })}
-
-            {isPolygonSpread &&
-              Bangunan.features.map((state) => {
-                const titik = state.geometry.coordinates[0][0].map((item) => [
-                  item[1],
-                  item[0],
-                ]);
-                return (
-                  <Polygon
-                    pathOptions={{
-                      color: "Red",
-                      fillOpacity: 3,
-                      weight: 2,
-                      opacity: 12,
-                      dashArray: 3,
-                    }}
-                    positions={titik}
-                  >
-                    <Popup>Build Name : {state.properties.REMARK}</Popup>
-                  </Polygon>
-                );
-              })}
-
-            {/* {Bangunan.features.map((state) => {
+            {Bangunan.features.map((state) => {
               const titik = state.geometry.coordinates[0][0].map((item) => [
                 item[1],
                 item[0],
@@ -497,10 +381,11 @@ const PopupExample = () => {
                   <Popup>Build Name : {state.properties.REMARK}</Popup>
                 </Polygon>
               );
-            })} */}
+            })}
 
             <Legend map={map} />
 
+            
             {september.map((row) => (
               <Marker
                 position={[
@@ -521,8 +406,8 @@ const PopupExample = () => {
             {september.map((row) => (
               <Marker
                 position={[
-                  row.demografi.latKoordinat - 0.001,
-                  row.demografi.longKoordinat + 0.001,
+                  row.demografi.latKoordinat - 0.01,
+                  row.demografi.longKoordinat + 0.01,
                 ]}
                 icon={ripIcon}
               >
@@ -552,15 +437,6 @@ const PopupExample = () => {
         >
           View Analysis Recap
         </Button>
-
-        {/* <Button
-          color="warning"
-          onClick={handleClickPolygon}
-          style={{ width: "auto", marginTop: "2vw", marginLeft: "10px" }}
-        >
-          View Polygon District
-        </Button> */}
-
         {isShown && (
           <Chart
             type="bar"

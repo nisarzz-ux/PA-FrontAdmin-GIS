@@ -16,8 +16,10 @@ const Grid = lazy(() => import("../views/ui/Grid"));
 const Tables = lazy(() => import("../views/ui/Tables"));
 const Forms = lazy(() => import("../views/ui/Forms"));
 const Map = lazy(() => import("../views/ui/Map"));
-// const FormNew = lazy (() => import("../views/ui/Form-Input/AddDemografi"));
 const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
+const SurabayaNorthMap =  lazy(() => import("../views/ui/NorthSurabaya"));
+const FormsUpdate = lazy(() => import("../views/ui/FormUpdate"));
+
 
 /*****Routes******/
 
@@ -27,7 +29,7 @@ const ThemeRoutes = [
     element: <FullLayout />,
     children: [
       { path: "/", element: <Navigate to="/starter" /> },
-      { path: "/starter", exact: true, element: <Starter /> },
+      { path: "/starter", exact: true, element: <Map /> },
       { path: "/about", exact: true, element: <About /> },
       { path: "/alerts", exact: true, element: <Alerts /> },
       { path: "/badges", exact: true, element: <Badges /> },
@@ -36,7 +38,9 @@ const ThemeRoutes = [
       { path: "/grid", exact: true, element: <Grid /> },
       { path: "/table", exact: true, element: <Tables /> },
       { path: "/forms", exact: true, element: <Forms /> },
-      { path: "/Map", exact:true, element: <Map /> },
+      { path: '/editData/:id', element: <FormsUpdate /> },
+      { path: "/LineChart", exact:true, element: <Starter /> },
+      { path: "/NorthSurabaya", exact: true, element: <SurabayaNorthMap /> },
       // { path: "/AddForm" , exact:true, element :<FormNew />},
       { path: "/breadcrumbs", exact: true, element: <Breadcrumbs /> },
     ],

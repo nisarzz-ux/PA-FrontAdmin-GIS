@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import ProjectTables from "../../components/dashboard/ProjectTable";
 import {
   Row,
   Col,
@@ -16,10 +15,15 @@ import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import axios from "axios";
 import Moment from "moment";
 import Swal from "sweetalert2";
+import { propTypes } from "react-bootstrap/esm/Image";
+import { useNavigate, useParams } from "react-router-dom";
+import FormUpdate from "./FormUpdate.js";
 
 const Tables = () => {
   const [september, setSeptember] = useState([]);
   const [date, setDate] = React.useState(new Date());
+  const { id_Sep } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getData();
@@ -37,7 +41,19 @@ const Tables = () => {
       });
   }
 
-  function hapusData(id) {
+  // const setData = (data) => {
+  //   let {id_tableSep, demografi_id, positif, sembuh, mati, rawat, Tanggal} = data;
+  //   localStorage.setItem('id_tableSep',id_tableSep);
+  //   localStorage.setItem('demografi_id',demografi_id);
+  //   localStorage.setItem('positif',positif);
+  //   localStorage.setItem('sembuh',sembuh);
+  //   localStorage.setItem('mati',mati);
+  //   localStorage.setItem('rawat',rawat);
+  //   localStorage.setItem('Tanggal',Tanggal);
+  //   navigate("/editData")
+  // }
+
+  function deleteData(id) {
     console.log(id);
     Swal.fire({
       title: "Data Berhasil di hapus!",
@@ -46,11 +62,15 @@ const Tables = () => {
       button: "back",
     });
     axios
-      .delete("http://127.0.0.1:8000/api/septemberTabel/delete/"+id)
+      .delete("http://127.0.0.1:8000/api/septemberTabel/delete/" + id)
       .then((response) => {
         getData();
       });
   }
+
+  // function updateData(id) {
+   
+  // }
 
   let districtFilter;
   let areaFilter;
@@ -90,23 +110,29 @@ const Tables = () => {
     { dataField: "rawat", text: "On Treatment ", sort: true },
 
     {
-      dataField: "id_table",
+      dataField: "id_tableSep",
       text: "Action",
-      formatter: (cellContent,row) => {
+      formatter: (cellContent, row) => {
         return (
           <CardGroup>
+            {console.log("id Tabel", row.id_tableSep)}
             <Button
               color="danger"
               className="mb-1 m-lg-1 w-15"
-              onClick={() => hapusData(row.id_table)}
+              onClick={() => deleteData(row.id_tableSep)}
             >
               <i class="bi bi-pen"></i>
               Hapus
             </Button>
-            <Button color="success" className="m-lg-1 w-15">
+            {/* <Button
+              color="success"
+              className="mb-1 m-lg-1 w-15"
+              // onClick={() => setData(september)}
+            >
               <i class="bi bi-cloud-download"></i>
-              Update
-            </Button>
+              <a href={"/#/editData/" + row.id_tableSep}
+              style={{color:"white"}}>Update</a>
+            </Button> */}
           </CardGroup>
         );
       },
@@ -143,7 +169,7 @@ const Tables = () => {
           <CardBody className="">
             <BootstrapTable
               hover
-              keyField={"id_table"}
+              keyField={"id_tableSep"}
               data={september}
               columns={columns}
               filter={filterFactory()}
