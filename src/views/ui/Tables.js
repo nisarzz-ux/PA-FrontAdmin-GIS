@@ -68,9 +68,9 @@ const Tables = () => {
       });
   }
 
-  // function updateData(id) {
-   
-  // }
+  function updateData(id) {
+    navigate("/editData/" + id)
+  }
 
   let districtFilter;
   let areaFilter;
@@ -124,15 +124,17 @@ const Tables = () => {
               <i class="bi bi-pen"></i>
               Hapus
             </Button>
-            {/* <Button
+            <Button
               color="success"
               className="mb-1 m-lg-1 w-15"
-              // onClick={() => setData(september)}
+              onClick={() => updateData(row.id_tableSep)}
             >
               <i class="bi bi-cloud-download"></i>
+              Update
+              {/* <i class="bi bi-cloud-download"></i>
               <a href={"/#/editData/" + row.id_tableSep}
-              style={{color:"white"}}>Update</a>
-            </Button> */}
+              style={{color:"white"}}>Update</a> */}
+            </Button>
           </CardGroup>
         );
       },

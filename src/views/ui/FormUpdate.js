@@ -28,6 +28,8 @@ const FormUpdate = (...props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const navigate = useNavigate();
+  const params = useParams();
+  
 
   const [data, setData] = useState([]);
 
@@ -50,16 +52,15 @@ const FormUpdate = (...props) => {
     // setTanggal(localStorage.getItem('Tanggal'));
     axios
       .get(
-        "http://127.0.0.1:8000/api/september_show/" + props.match?.params?.id
+        "http://127.0.0.1:8000/api/september_show/" + params.id
       )
       .then((response) => {
-        console.log(props.match?.params?.id);
         console.log("data masuk ", response.data[0]);
-        // setDemografiId(response.data.demografi_id);
-        // setPositif(response.data.positif);
-        // setSembuh(response.data.sembuh);
-        // setMati(response.data.mati);
-        // setRawat(response.data.rawat);
+        setDemografiId(response.data.demografi_id);
+        setPositif(response.data.positif);
+        setSembuh(response.data.sembuh);
+        setMati(response.data.mati);
+        setRawat(response.data.rawat);
       });
     getData();
   }, []);
@@ -77,7 +78,7 @@ const FormUpdate = (...props) => {
     axios
       .put(
         "http://127.0.0.1:8000/api/septemberTabel/update/" +
-          props.match?.params?.id,
+         params.id,
         TabelCovid
       )
       .then((res) => {
@@ -87,10 +88,8 @@ const FormUpdate = (...props) => {
           text: "Click the Button!",
           icon: "success",
           button: "back",
-          // timer: 10000
         });
-        navigate("/");
-        // window.setTimeout(function(){},10000);
+        navigate("/table");
       })
       .catch((error) => {
         console.log(error);
@@ -109,22 +108,6 @@ const FormUpdate = (...props) => {
       <CardTitle tag="h6" className="border-bottom p-3 mb-0">
         <i className="bi bi-textarea">Add Data</i>
       </CardTitle>
-
-      {/* <Modal show={show} onHide={handleClose}>
-        <Modal.Header>
-          <Modal.Title>Add Data</Modal.Title>
-        </Modal.Header>
-
-        <Modal.Body>
-          <AddFormDemografi />
-        </Modal.Body>
-
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal> */}
 
       <Col>
         <Card>
@@ -151,6 +134,7 @@ const FormUpdate = (...props) => {
                 <Input
                   type="text"
                   placeholder="input here"
+                  value={positif}
                   onChange={(e) => setPositif(e.target.value)}
                 />
               </FormGroup>
@@ -160,6 +144,7 @@ const FormUpdate = (...props) => {
                 <Input
                   type="text"
                   placeholder="input here"
+                  value={mati}
                   onChange={(e) => setMati(e.target.value)}
                 />
               </FormGroup>
@@ -169,6 +154,7 @@ const FormUpdate = (...props) => {
                 <Input
                   type="text"
                   placeholder="input here"
+                  value={rawat}
                   onChange={(e) => setRawat(e.target.value)}
                 />
               </FormGroup>
@@ -178,6 +164,7 @@ const FormUpdate = (...props) => {
                 <Input
                   type="text"
                   placeholder="input here"
+                  value={sembuh}
                   onChange={(e) => setSembuh(e.target.value)}
                 />
               </FormGroup>

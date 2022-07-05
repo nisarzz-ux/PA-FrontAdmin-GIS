@@ -7,31 +7,29 @@ function Legend({ map }) {
   useEffect(() => {
     if (map) {
       function getColor(d) {
-        return d == "Surabaya Utara"
-          ? "#de2d26"
-          : d == "Surabaya Pusat"
-          ? "#377eb8"
-          : d == "Surabaya Timur"
-          ? "#4daf4a"
-          : d == "Surabaya Selatan"
-          ? "#984ea3"
-          : "#ff7f00";
+        return d == "PPKM Level 1"
+          ? "#05b534"
+          : d == "PPKM Level 2"
+          ? "#eefa02"
+          : d == "PPKM Level 3"
+          ? "#fad905"
+          : d == "PPKM Level 4"
+          ? "#fa0202"
+          : <div></div>;
       }
       const legend = L.control({ position: "topright" });
       legend.onAdd = () => {
         const div = L.DomUtil.create("div", "info legend");
         var categories = [
-          "Surabaya Barat",
-          "Surabaya Pusat",
-          "Surabaya Timur",
-          "Surabaya Selatan",
-          "Surabaya Utara"
-          
+          "PPKM Level 1",
+          "PPKM Level 2",
+          "PPKM Level 3",
+          "PPKM Level 4",
         ];
         var labels = ["<strong>Categories</strong>"];
         for (var i = 0; i < categories.length; i++) {
           div.innerHTML += labels.push(
-            '<i class="bi bi-circle" style="background-color:' +
+            '<i class="bi bi-circle" style="background:' +
               getColor(categories[i]) +
               '"></i> ' +
               (categories[i] ? categories[i] : "+")

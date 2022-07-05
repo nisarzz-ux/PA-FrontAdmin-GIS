@@ -13,13 +13,19 @@ const navigation = [
     href: "/NorthSurabaya",
     icon: "bi bi-map",
   },
-  
+
+  {
+    title: "South Surabaya Map",
+    href: "/SouthSurabaya",
+    icon: "bi bi-map",
+  },
+
   {
     title: "District Information",
     href: "/cards",
     icon: "bi bi-card-text",
   },
-  
+
   {
     title: "Table",
     href: "/table",
@@ -33,7 +39,7 @@ const navigation = [
 
   // {
   //   title: "Form-Update",
-  //   href: "/editData/",
+  //   href: "/editData/:id",
   //   icon: "bi bi-textarea-resize",
   // },
   // {
@@ -53,13 +59,12 @@ const navigation = [
     icon: "bi bi-speedometer2",
   },
 
-  // {
-  //   title: "AddDemografiForm",
-  //   href: "/AddForm",
-  //   icon: "bi bi-textarea",
-  // icon: "bi bi-speedometer2",
-
-  // }
+  {
+    title: "Health of Facility",
+    href: "/FaskesPage",
+    icon: "bi bi-textarea",
+    icon: "bi bi-speedometer2",
+  },
 ];
 
 const Sidebar = () => {
@@ -72,9 +77,7 @@ const Sidebar = () => {
     <div className="p-3">
       <div className="d-flex align-items-center">
         <CardTitle tag="h6" className="border-bottom p-5 mb-0">
-        <i 
-        class="bi bi-calendar3-week-fill"
-        ></i>  System Analysis
+          <i class="bi bi-calendar3-week-fill"></i> System Analysis
         </CardTitle>
         <Button
           close
@@ -84,8 +87,7 @@ const Sidebar = () => {
         ></Button>
       </div>
       <div className="pt-4 mt-2" color="#6f9ee8">
-        <Nav vertical className="sidebarNav"
-        >
+        <Nav vertical className="sidebarNav">
           {navigation.map((navi, index) => (
             <NavItem key={index} className="sidenav-bg">
               <Link

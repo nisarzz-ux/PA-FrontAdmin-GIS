@@ -1,224 +1,137 @@
-import {
-  Card,
-  CardText,
-  CardTitle,
-  Row,
-  Col,
-} from "reactstrap";
+import { Card, CardText, CardTitle, Row, Col } from "reactstrap";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
+import Moment from "moment";
 
 
 const Cards = () => {
+  const [september, setSeptember] = useState([]);
+  const [date, setDate] = React.useState(new Date());
+  
   useEffect(() => {
-    getDemografi();
+    getDataSeptember();
   }, []);
-  const [demografi, setDemografi] = useState([]);
 
-  function getDemografi() {
-    axios.get("http://127.0.0.1:8000/api/demografi").then((response) => {
-      console.log(response.data);
-      setDemografi(response.data);
-    });
+  function getDataSeptember(filteredDate) {
+    axios
+      .get(
+        "http://127.0.0.1:8000/api/septemberDate?tanggal=" +
+          Moment(filteredDate).format("YYYY-MM-DD")
+      )
+      .then((response) => {
+        console.log(response.data);
+        setSeptember(response.data == [] ? [] : response.data);
+      });
   }
   return (
     <div>
       <Row>
-        {/* --------------------------------------------------------------------------------*/}
-        {/* Card-1*/}
-        {/* --------------------------------------------------------------------------------*/}
-        {/* --------------------------------------------------------------------------------*/}
-        {/* Card-2*/}
-        {/* --------------------------------------------------------------------------------*/}
         <Row>
           <h5 className="mb-3 mt-3">District of Demografy Table</h5>
-          {demografi.map((row) =>
-            row.penduduk_laki + row.penduduk_wanita < 70000 ? (
+          <CardTitle
+            tag="h6"
+            className="border-bottom p-3 mb-0"
+            style={{ marginTop: "10px" }}
+          >
+            <i className="bi bi-card-text me-2"> </i>
+            Choice The Date to Show The Covid-19 Spread Using GIS Analysist
+            <DatePicker
+              selected={date}
+              onChange={(tanggal) => {
+                getDataSeptember(tanggal);
+                setDate(tanggal);
+              }}
+              dateFormat="dd-MMM-yyyy"
+              peekNextMonth
+              showMonthDropdown
+              showYearDropdown
+              dropdownMode="select"
+            />
+          </CardTitle>
+
+          {september.map((row) =>
+            // PPKM Level 1 
+            row.mati < 1 || row.rawat < 5 ? (
               <Col md="6" lg="4">
                 <Card body>
-                  <CardTitle tag="h5">{row.kecamatan}</CardTitle>
+                  <CardTitle tag="h5">{row.demografi.kecamatan}</CardTitle>
                   <CardText>
-                    Men Population = {row.penduduk_laki} <br />
-                    Women Population = {row.penduduk_wanita} <br />
-                    Population Total = {row.penduduk_laki +
-                      row.penduduk_wanita}{" "}
+                    Men Population = {row.demografi.penduduk_laki} <br />
+                    Women Population = {row.demografi.penduduk_wanita} <br />
+                    Population Total = {row.demografi.penduduk_laki +
+                      row.demografi.penduduk_wanita}{" "}
                     <br />
-                    Area = {row.bagian_wilayah} <br />
-                    <i class="bi bi-star-fill"
-                    color="succsess"></i>Indication Risk is so low
+                    Area = {row.demografi.bagian_wilayah} <br />
+                    Death Case = {row.mati} <br />
+                    Cure case = {row.rawat} <br />
+                    <i class="bi bi-star-fill" color="succsess"></i>
+                    PPKM Level 1
+                  </CardText>
+                </Card>
+              </Col>
+            ) :  
+            //PPKM Level 2 
+            row.mati < 2 || row.rawat < 10 ?(
+              <Col md="6" lg="4">
+                <Card body>
+                  <CardTitle tag="h5">{row.demografi.kecamatan}</CardTitle>
+                  <CardText>
+                    Men Population = {row.demografi.penduduk_laki} <br />
+                    Women Population = {row.demografi.penduduk_wanita} <br />
+                    Population Total = {row.demografi.penduduk_laki +
+                      row.demografi.penduduk_wanita}{" "}
+                    <br />
+                    Area = {row.demografi.bagian_wilayah} <br />
+                    Death Case = {row.mati} <br />
+                    Cure case = {row.rawat} <br />
+                    <i class="bi bi-radioactive"></i>
+                    PPKM Level 2
+                  </CardText>
+                </Card>
+              </Col>
+            ) : row.mati < 5 || row.rawat <30 ?(
+              <Col md="6" lg="4">
+                <Card body>
+                  <CardTitle tag="h5">{row.demografi.kecamatan}</CardTitle>
+                  <CardText>
+                    Men Population = {row.demografi.penduduk_laki} <br />
+                    Women Population = {row.demografi.penduduk_wanita} <br />
+                    Population Total = {row.demografi.penduduk_laki +
+                      row.demografi.penduduk_wanita}{" "}
+                    <br />
+                    Area = {row.demografi.bagian_wilayah} <br />
+                    Death Case = {row.mati} <br />
+                    Cure case = {row.rawat} <br />
+                    <i class="bi bi-radioactive"></i>
+                    PPKM Level 3
+                  </CardText>
+                </Card>
+              </Col>
+            ) : row.mati > 5 || row.rawat > 30 ?(
+              <Col md="6" lg="4">
+                <Card body>
+                  <CardTitle tag="h5">{row.demografi.kecamatan}</CardTitle>
+                  <CardText>
+                    Men Population = {row.demografi.penduduk_laki} <br />
+                    Women Population = {row.demografi.penduduk_wanita} <br />
+                    Population Total = {row.demografi.penduduk_laki +
+                      row.demografi.penduduk_wanita}{" "}
+                    <br />
+                    Area = {row.demografi.bagian_wilayah} <br />
+                    Death Case = {row.mati} <br />
+                    Cure case = {row.rawat} <br />
+                    <i class="bi bi-radioactive"></i>
+                    PPKM Level 4 
                   </CardText>
                 </Card>
               </Col>
             ) : (
-              <Col md="6" lg="4">
-                <Card body>
-                  <CardTitle tag="h5">{row.kecamatan}</CardTitle>
-                  <CardText>
-                    Men Population = {row.penduduk_laki} <br />
-                    Women Population = {row.penduduk_wanita} <br />
-                    Population Total = {row.penduduk_laki +
-                      row.penduduk_wanita}{" "}
-                    <br />
-                    Area = {row.bagian_wilayah} <br />
-                    <i class="bi bi-radioactive"></i>Indication Risk is so High
-                  </CardText>
-                </Card>
-              </Col>
+              <div></div>
             )
+
           )}
         </Row>
-        {/* --------------------------------------------------------------------------------*/}
-        {/* Card-2*/}
-        {/* --------------------------------------------------------------------------------*/}
-        {/* <Row>
-        <h5 className="mb-3 mt-3">Colored Card</h5>
-        <Col md="6" lg="3">
-          <Card body color="primary" inverse>
-            <CardTitle tag="h5">Special Title Treatment</CardTitle>
-            <CardText>
-              With supporting text below as a natural lead-in to additional
-              content.
-            </CardText>
-            <div>
-              <Button>Button</Button>
-            </div>
-          </Card>
-        </Col>
-        <Col md="6" lg="3">
-          <Card body color="info" inverse>
-            <CardTitle tag="h5">Special Title Treatment</CardTitle>
-            <CardText>
-              With supporting text below as a natural lead-in to additional
-              content.
-            </CardText>
-            <div>
-              <Button>Button</Button>
-            </div>
-          </Card>
-        </Col>
-        <Col md="6" lg="3">
-          <Card body color="success" inverse>
-            <CardTitle tag="h5">Special Title Treatment</CardTitle>
-            <CardText>
-              With supporting text below as a natural lead-in to additional
-              content.
-            </CardText>
-            <div>
-              <Button>Button</Button>
-            </div>
-          </Card>
-        </Col>
-        <Col md="6" lg="3">
-          <Card body color="danger" inverse>
-            <CardTitle tag="h5">Special Title Treatment</CardTitle>
-            <CardText>
-              With supporting text below as a natural lead-in to additional
-              content.
-            </CardText>
-            <div>
-              <Button>Button</Button>
-            </div>
-          </Card>
-        </Col>
-        <Col md="6" lg="3">
-          <Card body color="light-warning">
-            <CardTitle tag="h5">Special Title Treatment</CardTitle>
-            <CardText>
-              With supporting text below as a natural lead-in to additional
-              content.
-            </CardText>
-            <div>
-              <Button>Button</Button>
-            </div>
-          </Card>
-        </Col>
-        <Col md="6" lg="3">
-          <Card body color="light-info">
-            <CardTitle tag="h5">Special Title Treatment</CardTitle>
-            <CardText>
-              With supporting text below as a natural lead-in to additional
-              content.
-            </CardText>
-            <div>
-              <Button>Button</Button>
-            </div>
-          </Card>
-        </Col>
-        <Col md="6" lg="3">
-          <Card body color="light-success">
-            <CardTitle tag="h5">Special Title Treatment</CardTitle>
-            <CardText>
-              With supporting text below as a natural lead-in to additional
-              content.
-            </CardText>
-            <div>
-              <Button>Button</Button>
-            </div>
-          </Card>
-        </Col>
-        <Col md="6" lg="3">
-          <Card body color="light-danger">
-            <CardTitle tag="h5">Special Title Treatment</CardTitle>
-            <CardText>
-              With supporting text below as a natural lead-in to additional
-              content.
-            </CardText>
-            <div>
-              <Button>Button</Button>
-            </div>
-          </Card>
-        </Col>
-      <Row>
-        <h5 className="mb-3 mt-3">Card Group</h5>
-        <Col>
-          <CardGroup>
-            <Card>
-              <CardImg alt="Card image cap" src={bg1} top width="100%" />
-              <CardBody>
-                <CardTitle tag="h5">Card title</CardTitle>
-                <CardSubtitle className="mb-2 text-muted" tag="h6">
-                  Card subtitle
-                </CardSubtitle>
-                <CardText>
-                  This is a wider card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
-                </CardText>
-                <Button>Button</Button>
-              </CardBody>
-            </Card>
-            <Card>
-              <CardImg alt="Card image cap" src={bg2} top width="100%" />
-              <CardBody>
-                <CardTitle tag="h5">Card title</CardTitle>
-                <CardSubtitle className="mb-2 text-muted" tag="h6">
-                  Card subtitle
-                </CardSubtitle>
-                <CardText>
-                  This card has supporting text below as a natural lead-in to
-                  additional content.
-                </CardText>
-                <Button>Button</Button>
-              </CardBody>
-            </Card>
-            <Card>
-              <CardImg alt="Card image cap" src={bg3} top width="100%" />
-              <CardBody>
-                <CardTitle tag="h5">Card title</CardTitle>
-                <CardSubtitle className="mb-2 text-muted" tag="h6">
-                  Card subtitle
-                </CardSubtitle>
-                <CardText>
-                  This is a wider card with supporting text below as a natural
-                  lead-in to additional content. This card has even longer
-                  content than the first to show that equal height action.
-                </CardText>
-                <Button>Button</Button>
-              </CardBody>
-            </Card>
-          </CardGroup>
-        </Col>
-      </Row> */}
       </Row>
     </div>
   );

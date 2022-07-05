@@ -1,16 +1,8 @@
-import {
-  MapContainer,
-  Marker,
-  Popup,
-  TileLayer,
-  Polygon,
-  withLeaflet,
-} from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer, Polygon } from "react-leaflet";
 import React, { useState, useEffect } from "react";
 import Legend from "./Legend";
 import {
   Col,
-  CardSubtitle,
   CardTitle,
   Table,
   Button,
@@ -19,6 +11,10 @@ import {
   ModalHeader,
   ModalFooter,
   Row,
+  Card,
+  CardBody,
+  Breadcrumb,
+  BreadcrumbItem,
 } from "reactstrap";
 import "./File-Map/Map.css";
 import DatePicker from "react-datepicker";
@@ -28,6 +24,8 @@ import L from "leaflet";
 import { GoEye } from "react-icons/go";
 import statesData from "./File-Map/JsonMap/28-tes.json";
 import Bangunan from "./File-Map/JsonMap/bangunan.json";
+import Pelabuhan from "./File-Map/JsonMap/Pelabuhan.json";
+import Pemukiman from "./File-Map/JsonMap/Pemukiman.json";
 import Chart from "react-apexcharts";
 import "leaflet/dist/leaflet.css";
 import LeafletRuler from "./File-Map/LeafletRuler";
@@ -42,19 +40,20 @@ const PopupExample = () => {
   // Custom Icon on React-Leaflet
   const customIcon = new L.Icon({
     iconUrl: require("./iconPlus.png").default,
-    iconSize: new L.Point(15, 15),
+    iconSize: new L.Point(30, 30),
   });
 
   const ripIcon = new L.Icon({
     iconUrl: require("./icons8-death-64.png").default,
-    iconSize: new L.Point(15, 15),
+    iconSize: new L.Point(30, 30),
   });
- 
+
   //Show and Close Menu
-  const [isShowNorthMap,setShowNorthMap] = React.useState(false);
+  const [isShowNorthMap, setShowNorthMap] = React.useState(false);
+
   const handleClickNorthMap = (event) => {
     setShowNorthMap((current) => !current);
-  }
+  };
 
   useEffect(() => {
     getDataSeptember();
@@ -116,19 +115,20 @@ const PopupExample = () => {
     return row.positif;
   });
 
-  const arrayNumber = dataPositif.map(Number);
-  console.log("Kumpulan Angka", arrayNumber);
+  function getColorCompare(temp) {
+    // Green Color
+    if (temp < 5) return "#05b534";
+    else if (temp >= 5 && temp < 10) return "#eefa02";
+    else if (temp >= 10 && temp < 30) return "#fad905";
+    else if (temp >= 30) return "#faac05";
+    
+  }
 
   //Summary Data of Positive Case
   const resultPositif = dataPositif.reduce(
     (total, currentValue) => (total = total + currentValue),
     0
   );
-
-  let jumlahBangunan = Bangunan.features.length;
-  console.log("Jumlah Bangunan :", jumlahBangunan);
-
-  const temp = parseInt(resultPositif);
 
   // Find the Max Positive Case
   const maxPositif = Math.max(...dataPositif);
@@ -149,7 +149,7 @@ const PopupExample = () => {
 
   // Show the care case of this day
   const dataRawat = september.map((row) => {
-    return row.rawat;
+   return row.rawat;
   });
 
   // Summary the care case
@@ -163,7 +163,7 @@ const PopupExample = () => {
 
   // Show the Deathly case of this day
   const dataMati = september.map((row) => {
-    return row.mati;
+     return row.mati;
   });
 
   // Summary the Deathly case
@@ -176,12 +176,11 @@ const PopupExample = () => {
   const maxMati = Math.max(...dataMati);
 
   const dataKecamatan = september.map((row) => {
-    return row.demografi.kecamatan;
+      return row.demografi.kecamatan;
   });
 
-  // const allCoordinate => { statesData.features.map((state) => {
-  //   return state.geometry.coordinates[0][0].map((item) => [item[1],item[0]])
-  // })}
+  console.log("kecamatan",dataKecamatan)
+
   const allCoordinate = statesData.features.map((state) => {
     return state.geometry.coordinates[0][0].map((item) => [item[1], item[0]]);
   });
@@ -243,6 +242,26 @@ const PopupExample = () => {
 
   return (
     <div>
+      <Row>
+        <Col>
+          <Card>
+            <CardTitle tag="h6" className="border-bottom p-3 mb-0">
+              <i className="bi bi-link me-2"> </i>
+              Welcome to Map of Northern Surabaya
+            </CardTitle>
+            <CardBody className="">
+              <Breadcrumb>
+                <BreadcrumbItem active>
+                  <Button color="info" onClick={handleClickNorthMap}>
+                    Where Is Probabilty About Potential Contact
+                  </Button>
+                </BreadcrumbItem>
+              </Breadcrumb>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+
       <Row style={{ margin: "auto" }}>
         <CardTitle
           tag="h6"
@@ -268,48 +287,49 @@ const PopupExample = () => {
 
       <Row>
         <Col>
-          <Table striped style={{ height: "auto", width: "auto" }}>
+          <Table striped style={{ height: "auto", width: "50vw" }}>
             <thead>
               <tr>
-                <th>Element Name Legend</th>
-                <th>Total</th>
+                <th>District Name</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody style={{ marginBottom: "auto" }}>
-              <tr>
-                <td>Gedung / Bangunan </td>
-                <td>{Bangunan.features.length}</td>
-              </tr>
-              {/* {september.map((row) =>
-                (row.positif >= 0) & (row.positif < 1000) ? (
-                  <tr>
-                    <td>{row.demografi.kecamatan}</td>
-                    <td>This Area of Level 1 of PPKM</td>
-                  </tr>
-                ) : (row.positif >= 1000) & (row.positif < 3000) ? (
-                  <tr>
-                    <td>{row.demografi.kecamatan}</td>
-                    <td>This Area of Level 2 of PPKM</td>
-                  </tr>
-                ) : (row.positif >= 3000) & (row.positif < 5000) ? (
-                  <tr>
-                    <td>{row.demografi.kecamatan}</td>
-                    <td>This Area of Level 3 of PPKM</td>
-                  </tr>
+              {september.map((row) =>
+                row.demografi.bagian_wilayah == "Surabaya Utara" ? (
+                  row.rawat < 5 ? (
+                    <tr>
+                      <td>{row.demografi.kecamatan}</td>
+                      <td>This Area of Level 1 of PPKM</td>
+                    </tr>
+                  ) : row.rawat < 10 ? (
+                    <tr>
+                      <td>{row.demografi.kecamatan}</td>
+                      <td>This Area of Level 2 of PPKM</td>
+                    </tr>
+                  ) : row.rawat < 30 ? (
+                    <tr>
+                      <td>{row.demografi.kecamatan}</td>
+                      <td>This Area of Level 3 of PPKM</td>
+                    </tr>
+                  ) : (
+                    <tr>
+                      <td>{row.demografi.kecamatan}</td>
+                      <td>This Area of Level 4 of PPKM</td>
+                    </tr>
+                  )
                 ) : (
-                  <tr>
-                    <td>{row.demografi.kecamatan}</td>
-                    <td>This Area of Level 4 of PPKM</td>
-                  </tr>
+                  <div></div>
                 )
-              )} */}
+              )}
             </tbody>
           </Table>
         </Col>
+
         <Col>
           <MapContainer
-            center={[-7.253477219308051, 112.7174872482906]}
-            zoom={12}
+            center={[-7.214467, 112.731291314]}
+            zoom={13}
             scrollWheelZoom={true}
             whenCreated={setMap}
           >
@@ -323,26 +343,44 @@ const PopupExample = () => {
 
             <LeafletRuler />
 
-            {/* <GeoJSON
-              data={statesData}
-              style={{
-                fillColor: getColor(resultPositif),
-                fillOpacity: 0.5,
-                weight: 2,
-                opacity: 1,
-                dashArray: 3,
-              }}
-            /> */}
+            {september.length > 0 &&
+              statesData.features.map((state, index) => {
+                console.log(september[index].rawat);
+                // console.log(index, september[index])
+                const coordinatesAll = state.geometry.coordinates[0][0].map(
+                  (item) => [item[1], item[0]]
+                );
 
-            {/* {statesData.features.map((state) => {
+                return state.properties.Wilayah == "Utara" ? (
+                  <Polygon
+                    pathOptions={{
+                      fillColor: getColorCompare(september[index].rawat),
+                      fillOpacity: 0.7,
+                      weight: 2,
+                      opacity: 1,
+                      dashArray: 3,
+                      color: "white",
+                    }}
+                    positions={coordinatesAll}
+                  >
+                    <Popup>
+                      District Name : {state.properties.KECAMATAN} <br />
+                      Cure Case : {september[index].rawat}
+                    </Popup>
+                  </Polygon>
+                ) : (
+                  <div></div>
+                );
+              })}
+
+            {statesData.features.map((state) => {
               const coordinates = state.geometry.coordinates[0][0].map(
                 (item) => [item[1], item[0]]
               );
-
-              return (
+              return state.properties.Wilayah == "Utara" ? (
                 <Polygon
                   pathOptions={{
-                    fillColor: getColor(state.properties.WILAYAH),
+                    fillColor: getColor(state.properties.Wilayah),
                     fillOpacity: 0.7,
                     weight: 2,
                     opacity: 1,
@@ -352,73 +390,127 @@ const PopupExample = () => {
                   positions={coordinates}
                 >
                   <Popup>
-                    District : {state.properties.LAYER_1}
+                    District : {state.properties.KECAMATAN}
                     <br />
-                    Area : {state.properties.WILAYAH}
+                    Area : {state.properties.Wilayah}
                     <br />
-                    Zone : {state.properties.LUAS} Km / Square
+                    Zone : {state.properties.AREA} Km / Square
                   </Popup>
                 </Polygon>
-              );
-            })} */}
-
-            {Bangunan.features.map((state) => {
-              const titik = state.geometry.coordinates[0][0].map((item) => [
-                item[1],
-                item[0],
-              ]);
-              return (
-                <Polygon
-                  pathOptions={{
-                    color: "Red",
-                    fillOpacity: 3,
-                    weight: 2,
-                    opacity: 12,
-                    dashArray: 3,
-                  }}
-                  positions={titik}
-                >
-                  <Popup>Build Name : {state.properties.REMARK}</Popup>
-                </Polygon>
+              ) : (
+                <div></div>
               );
             })}
 
+            {isShowNorthMap &&
+              Pemukiman.features.map((state) => {
+                const titik = state.geometry.coordinates[0][0].map((item) => [
+                  item[1],
+                  item[0],
+                ]);
+                return (
+                  <Polygon
+                    pathOptions={{
+                      color: "yellow",
+                      fillOpacity: 0.7,
+                      weight: 2,
+                      opacity: 12,
+                      dashArray: 3,
+                    }}
+                    positions={titik}
+                  >
+                    <Popup>Build Name : {state.properties.REMARK}</Popup>
+                  </Polygon>
+                );
+              })}
+
+            {isShowNorthMap &&
+              Bangunan.features.map((state) => {
+                const titik = state.geometry.coordinates[0][0].map((item) => [
+                  item[1],
+                  item[0],
+                ]);
+                return (
+                  <Polygon
+                    pathOptions={{
+                      color: "Red",
+                      fillOpacity: 3,
+                      weight: 2,
+                      opacity: 12,
+                      dashArray: 3,
+                    }}
+                    positions={titik}
+                  >
+                    <Popup>Build Name : {state.properties.REMARK}</Popup>
+                  </Polygon>
+                );
+              })}
+
+            {isShowNorthMap &&
+              Pelabuhan.features.map((state) => {
+                const titik = state.geometry.coordinates[0][0].map((item) => [
+                  item[1],
+                  item[0],
+                ]);
+                return (
+                  <Polygon
+                    pathOptions={{
+                      color: "grey",
+                      fillOpacity: 3,
+                      weight: 2,
+                      opacity: 12,
+                      dashArray: 3,
+                    }}
+                    positions={titik}
+                  >
+                    <Popup>Build Name : {state.properties.REMARK}</Popup>
+                  </Polygon>
+                );
+              })}
+
             <Legend map={map} />
 
-            
-            {september.map((row) => (
-              <Marker
-                position={[
-                  row.demografi.latKoordinat,
-                  row.demografi.longKoordinat,
-                ]}
-                icon={customIcon}
-              >
-                <Popup>
-                  {row.demografi.kecamatan} <br />
-                  Area : {row.demografi.bagian_wilayah} <br />
-                  Positif Case : {row.positif} <br />
-                  Date Case : {row.Tanggal} <br />
-                </Popup>
-              </Marker>
-            ))}
+            {september.map((row) =>
+              row.demografi.bagian_wilayah == "Surabaya Utara" ? (
+                <Marker
+                  position={[
+                    row.demografi.latKoordinat,
+                    row.demografi.longKoordinat,
+                  ]}
+                  icon={customIcon}
+                >
+                  <Popup>
+                    {row.demografi.kecamatan} <br />
+                    Area : {row.demografi.bagian_wilayah} <br />
+                    Positif Case : {row.positif} <br />
+                    Date Case : {row.Tanggal} <br />
+                  </Popup>
+                </Marker>
+              ) : (
+                <div></div>
+              )
+            )}
 
-            {september.map((row) => (
-              <Marker
-                position={[
-                  row.demografi.latKoordinat - 0.01,
-                  row.demografi.longKoordinat + 0.01,
-                ]}
-                icon={ripIcon}
-              >
-                <Popup>
-                  {row.demografi.kecamatan} <br />
-                  Area : {row.demografi.bagian_wilayah} <br />
-                  Death Case : {row.mati} <br />
-                  Date Case : {row.Tanggal} <br />
-                </Popup>
-              </Marker>
-            ))}
+            {september.map((row) =>
+              row.demografi.bagian_wilayah == "Surabaya Utara" ? (
+                <Marker
+                  position={[
+                    row.demografi.latKoordinat - 0.01,
+                    row.demografi.longKoordinat + 0.01,
+                  ]}
+                  icon={ripIcon}
+                >
+                  <Popup>
+                    {row.demografi.kecamatan} <br />
+                    Area : {row.demografi.bagian_wilayah} <br />
+                    Death Case : {row.mati} <br />
+                    Date Case : {row.Tanggal} <br />
+                  </Popup>
+                </Marker>
+              ) : (
+                <div></div>
+              )
+            )}
           </MapContainer>
         </Col>
       </Row>
@@ -455,10 +547,10 @@ const PopupExample = () => {
             that for the highest number of cases from sub-districts in the city
             of Surabaya : <br />
             <br />
-            Max positive cases : {maxPositif} <br />
-            Max cure cases : {maxSembuh} <br />
-            Max patients treated : {maxRawat} <br />
-            Max death cases : {maxMati} <br />
+            Max positive cases : {Math.max(...dataPositif)} <br />
+            Max cure cases : {Math.max(...dataSembuh)} <br />
+            Max patients treated : {Math.max(...dataRawat)} <br />
+            Max death cases : {Math.max(...dataMati)} <br />
             <br />
             Details for the total number of cases : <br />
             Positive cases : {resultPositif} <br />
