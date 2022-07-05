@@ -304,7 +304,7 @@ const PopupExample = () => {
                   (item) => [item[1], item[0]]
                 );
 
-                return state.properties.Wilayah == "Utara" ? (
+                return state.properties.Wilayah == "Pusat" ? (
                   <Polygon
                     pathOptions={{
                       fillColor: getColorCompare(september[index].rawat),
@@ -330,7 +330,7 @@ const PopupExample = () => {
               const coordinates = state.geometry.coordinates[0][0].map(
                 (item) => [item[1], item[0]]
               );
-              return state.properties.Wilayah == "Utara" ? (
+              return state.properties.Wilayah == "Pusat" ? (
                 <Polygon
                   pathOptions={{
                     fillColor: getColor(state.properties.Wilayah),
@@ -424,7 +424,7 @@ const PopupExample = () => {
             <Legend map={map} />
 
             {september.map((row) =>
-              row.demografi.bagian_wilayah == "Surabaya Utara" ? (
+              row.demografi.bagian_wilayah == "Surabaya Pusat" ? (
                 <Marker
                   position={[
                     row.demografi.latKoordinat,
@@ -445,7 +445,7 @@ const PopupExample = () => {
             )}
 
             {september.map((row) =>
-              row.demografi.bagian_wilayah == "Surabaya Utara" ? (
+              row.demografi.bagian_wilayah == "Surabaya Pusat" ? (
                 <Marker
                   position={[
                     row.demografi.latKoordinat - 0.01,
@@ -477,7 +477,7 @@ const PopupExample = () => {
             </thead>
             <tbody style={{ marginBottom: "auto" }}>
               {september.map((row) =>
-                row.demografi.bagian_wilayah == "Surabaya Utara" ? (
+                row.demografi.bagian_wilayah == "Surabaya Pusat" ? (
                   row.rawat < 5 ? (
                     <tr>
                       <td>{row.demografi.kecamatan}</td>

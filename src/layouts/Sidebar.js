@@ -21,6 +21,24 @@ const navigation = [
   },
 
   {
+    title: "West Surabaya Map",
+    href: "/WestSurabaya",
+    icon: "bi bi-map",
+  },
+
+  {
+    title: "East Surabaya Map",
+    href: "/EastSurabaya",
+    icon: "bi bi-map",
+  },
+
+  {
+    title: "Center Surabaya Map",
+    href: "/CenterSurabaya",
+    icon: "bi bi-map",
+  },
+
+  {
     title: "District Information",
     href: "/cards",
     icon: "bi bi-card-text",

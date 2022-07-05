@@ -19,6 +19,9 @@ const Map = lazy(() => import("../views/ui/Map"));
 const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
 const SurabayaNorthMap =  lazy(() => import("../views/ui/NorthSurabaya"));
 const SurabayaSouthMap =  lazy(() => import("../views/ui/SouthSurabayaMap"));
+const SurabayaWestMap =  lazy(() => import("../views/ui/WestSurabayaMap"));
+const SurabayaEastMap =  lazy(() => import("../views/ui/EastSurabayaMap"));
+const SurabayaCenterMap =  lazy(() => import("../views/ui/CenterSurabayaMap"));
 const FormsUpdate = lazy(() => import("../views/ui/FormUpdate"));
 const FaskesPage = lazy(() => import("../views/ui/FaskesPage"));
 
@@ -44,6 +47,9 @@ const ThemeRoutes = [
       { path: "/LineChart", exact:true, element: <Starter /> },
       { path: "/NorthSurabaya", exact: true, element: <SurabayaNorthMap /> },
       { path: "/SouthSurabaya", exact: true, element: <SurabayaSouthMap /> },
+      { path: "/WestSurabaya", exact: true, element: <SurabayaWestMap /> },
+      { path: "/EastSurabaya", exact: true, element: <SurabayaEastMap /> },
+      { path: "/CenterSurabaya", exact: true, element: <SurabayaCenterMap /> },
       { path: "/breadcrumbs", exact: true, element: <Breadcrumbs /> },
       { path: "/FaskesPage", exact: true, element: <FaskesPage /> },
     ],

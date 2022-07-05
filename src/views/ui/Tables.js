@@ -41,18 +41,6 @@ const Tables = () => {
       });
   }
 
-  // const setData = (data) => {
-  //   let {id_tableSep, demografi_id, positif, sembuh, mati, rawat, Tanggal} = data;
-  //   localStorage.setItem('id_tableSep',id_tableSep);
-  //   localStorage.setItem('demografi_id',demografi_id);
-  //   localStorage.setItem('positif',positif);
-  //   localStorage.setItem('sembuh',sembuh);
-  //   localStorage.setItem('mati',mati);
-  //   localStorage.setItem('rawat',rawat);
-  //   localStorage.setItem('Tanggal',Tanggal);
-  //   navigate("/editData")
-  // }
-
   function deleteData(id) {
     console.log(id);
     Swal.fire({
@@ -143,13 +131,6 @@ const Tables = () => {
 
   return (
     <Row>
-      {/* --------------------------------------------------------------------------------*/}
-      {/* table-1*/}
-      {/* --------------------------------------------------------------------------------*/}
-      <Col lg="12">{/* <ProjectTables /> */}</Col>
-      {/* --------------------------------------------------------------------------------*/}
-      {/* table-2*/}
-      {/* --------------------------------------------------------------------------------*/}
       <Col lg="12">
         <Card>
           <CardTitle tag="h6" className="border-bottom p-3 mb-0">

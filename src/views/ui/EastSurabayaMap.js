@@ -114,7 +114,6 @@ const PopupExample = () => {
     else if (temp >= 5 && temp < 10) return "#eefa02";
     else if (temp >= 10 && temp < 30) return "#fad905";
     else if (temp >= 30) return "#faac05";
-    
   }
 
   //Summary Data of Positive Case
@@ -142,7 +141,7 @@ const PopupExample = () => {
 
   // Show the care case of this day
   const dataRawat = september.map((row) => {
-   return row.rawat;
+    return row.rawat;
   });
 
   // Summary the care case
@@ -156,7 +155,7 @@ const PopupExample = () => {
 
   // Show the Deathly case of this day
   const dataMati = september.map((row) => {
-     return row.mati;
+    return row.mati;
   });
 
   // Summary the Deathly case
@@ -169,10 +168,10 @@ const PopupExample = () => {
   const maxMati = Math.max(...dataMati);
 
   const dataKecamatan = september.map((row) => {
-      return row.demografi.kecamatan;
+    return row.demografi.kecamatan;
   });
 
-  console.log("kecamatan",dataKecamatan)
+  console.log("kecamatan", dataKecamatan);
 
   const allCoordinate = statesData.features.map((state) => {
     return state.geometry.coordinates[0][0].map((item) => [item[1], item[0]]);
@@ -279,10 +278,49 @@ const PopupExample = () => {
       </Row>
 
       <Row>
+        {/* <Col>
+          <Table striped style={{ height: "auto", width: "50vw" }}>
+            <thead>
+              <tr>
+                <th>District Name</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody style={{ marginBottom: "auto" }}>
+              {september.map((row) =>
+                row.demografi.bagian_wilayah == "Surabaya Timur" ? (
+                  row.rawat < 5 ? (
+                    <tr>
+                      <td>{row.demografi.kecamatan}</td>
+                      <td>This Area of Level 1 of PPKM</td>
+                    </tr>
+                  ) : row.rawat < 10 ? (
+                    <tr>
+                      <td>{row.demografi.kecamatan}</td>
+                      <td>This Area of Level 2 of PPKM</td>
+                    </tr>
+                  ) : row.rawat < 30 ? (
+                    <tr>
+                      <td>{row.demografi.kecamatan}</td>
+                      <td>This Area of Level 3 of PPKM</td>
+                    </tr>
+                  ) : (
+                    <tr>
+                      <td>{row.demografi.kecamatan}</td>
+                      <td>This Area of Level 4 of PPKM</td>
+                    </tr>
+                  )
+                ) : (
+                  <div></div>
+                )
+              )}
+            </tbody>
+          </Table>
+        </Col> */}
         <Col>
           <MapContainer
-            center={[-7.214467, 112.731291314]}
-            zoom={13}
+            center={[-7.2905636, 112.7692647]}
+            zoom={12}
             scrollWheelZoom={true}
             whenCreated={setMap}
           >
@@ -304,7 +342,7 @@ const PopupExample = () => {
                   (item) => [item[1], item[0]]
                 );
 
-                return state.properties.Wilayah == "Utara" ? (
+                return state.properties.Wilayah == "Timur" ? (
                   <Polygon
                     pathOptions={{
                       fillColor: getColorCompare(september[index].rawat),
@@ -330,7 +368,7 @@ const PopupExample = () => {
               const coordinates = state.geometry.coordinates[0][0].map(
                 (item) => [item[1], item[0]]
               );
-              return state.properties.Wilayah == "Utara" ? (
+              return state.properties.Wilayah == "Timur" ? (
                 <Polygon
                   pathOptions={{
                     fillColor: getColor(state.properties.Wilayah),
@@ -424,7 +462,7 @@ const PopupExample = () => {
             <Legend map={map} />
 
             {september.map((row) =>
-              row.demografi.bagian_wilayah == "Surabaya Utara" ? (
+              row.demografi.bagian_wilayah == "Surabaya Timur" ? (
                 <Marker
                   position={[
                     row.demografi.latKoordinat,
@@ -445,7 +483,7 @@ const PopupExample = () => {
             )}
 
             {september.map((row) =>
-              row.demografi.bagian_wilayah == "Surabaya Utara" ? (
+              row.demografi.bagian_wilayah == "Surabaya Timur" ? (
                 <Marker
                   position={[
                     row.demografi.latKoordinat - 0.01,
@@ -465,46 +503,6 @@ const PopupExample = () => {
               )
             )}
           </MapContainer>
-        </Col>
-
-        <Col>
-          <Table striped style={{ height: "auto", width: "50vw" }}>
-            <thead>
-              <tr>
-                <th>District Name</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody style={{ marginBottom: "auto" }}>
-              {september.map((row) =>
-                row.demografi.bagian_wilayah == "Surabaya Utara" ? (
-                  row.rawat < 5 ? (
-                    <tr>
-                      <td>{row.demografi.kecamatan}</td>
-                      <td>This Area of Level 1 of PPKM</td>
-                    </tr>
-                  ) : row.rawat < 10 ? (
-                    <tr>
-                      <td>{row.demografi.kecamatan}</td>
-                      <td>This Area of Level 2 of PPKM</td>
-                    </tr>
-                  ) : row.rawat < 30 ? (
-                    <tr>
-                      <td>{row.demografi.kecamatan}</td>
-                      <td>This Area of Level 3 of PPKM</td>
-                    </tr>
-                  ) : (
-                    <tr>
-                      <td>{row.demografi.kecamatan}</td>
-                      <td>This Area of Level 4 of PPKM</td>
-                    </tr>
-                  )
-                ) : (
-                  <div></div>
-                )
-              )}
-            </tbody>
-          </Table>
         </Col>
       </Row>
       <Row>
