@@ -38,6 +38,7 @@ import Pemukiman from "./File-Map/JsonMap/Pemukiman.json";
 
 const PopupExample = () => {
   const [september, setSeptember] = useState([]);
+  const [faskes, setFaskes] = useState([]);
   const [date, setDate] = React.useState(new Date());
   const [modal, setModal] = React.useState(false);
 
@@ -57,9 +58,12 @@ const PopupExample = () => {
   //View Marker of Clasification Class
   const [isMarker, setMarker] = React.useState(false);
 
-  //View Polygon of Clasification Spread of Covid-19 Virus 
-  const [isPolygonClassification, setPolygonClassification] = React.useState(false);
+  //view Marker of Healty Facilityion
+  const [isMarkerFaskes, setMarkerFaskes] = React.useState(false);
 
+  //View Polygon of Clasification Spread of Covid-19 Virus
+  const [isPolygonClassification, setPolygonClassification] =
+    React.useState(false);
 
   //Show and Close Menu
   const handleClick = (event) => {
@@ -82,6 +86,10 @@ const PopupExample = () => {
 
   const handleClickPolygonClasification = (event) => {
     setPolygonClassification((current) => !current);
+  };
+
+  const handleFaskes = (event) => {
+    setMarkerFaskes((current) => !current);
   };
 
   const toggle = () => setModal(!modal);
@@ -111,6 +119,15 @@ const PopupExample = () => {
         setSeptember(response.data == [] ? [] : response.data);
       });
   }
+
+  // function getFaskes() {
+  //   axios
+  //     .get("http://127.0.0.1:8000/api/faskesTabelAllData")
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       setFaskes(response.data);
+  //     });
+  // }
 
   function getColor(temp) {
     return temp == "Utara" ? (
@@ -331,7 +348,7 @@ const PopupExample = () => {
               <i class="bi bi-activity"></i> Item Analysist This map
             </DropdownToggle>
             <DropdownMenu>
-            <DropdownItem onClick={handleClickPolygonClasification}>
+              <DropdownItem onClick={handleClickPolygonClasification}>
                 Where Is Polygon Clasification spread of Covid-19 Virus ?
               </DropdownItem>
               <DropdownItem onClick={handleClickMarker}>
@@ -344,6 +361,9 @@ const PopupExample = () => {
                 {" "}
                 Where is the Potential Place for the Covid-19 Virus to Spread in
                 the City of Surabaya?
+              </DropdownItem>
+              <DropdownItem onClick={handleFaskes}>
+                Where Is Facilty (Puskesmas) ?
               </DropdownItem>
               <DropdownItem divider />
             </DropdownMenu>
@@ -417,7 +437,7 @@ const PopupExample = () => {
               })}
 
             {isPolygonClassification &&
-            september.length > 0 &&
+              september.length > 0 &&
               statesData.features.map((state, index) => {
                 console.log(september[index].rawat);
                 // console.log(index, september[index])
@@ -441,7 +461,6 @@ const PopupExample = () => {
                       District Name : {state.properties.KECAMATAN} <br />
                       Status Level : PPKM level 1
                     </Popup>
-                    
                   </Polygon>
                 );
               })}
@@ -523,6 +542,8 @@ const PopupExample = () => {
                       Date Case : {row.Tanggal} <br />
                     </Popup>
                   </Marker>
+
+                  
                 </div>
               ))}
           </MapContainer>

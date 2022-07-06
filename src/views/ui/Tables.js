@@ -62,7 +62,7 @@ const Tables = () => {
 
   let districtFilter;
   let areaFilter;
-  let temp;
+ 
 
   const columns = [
     {

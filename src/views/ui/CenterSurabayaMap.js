@@ -317,8 +317,9 @@ const PopupExample = () => {
                     positions={coordinatesAll}
                   >
                     <Popup>
-                      District Name : {state.properties.KECAMATAN} <br />
-                      Cure Case : {september[index].rawat}
+                      District Name     : {state.properties.KECAMATAN} <br />
+                      On Treatment Case : {september[index].rawat} <br />
+                      Death Case        : {september[index].mati}
                     </Popup>
                   </Polygon>
                 ) : (
