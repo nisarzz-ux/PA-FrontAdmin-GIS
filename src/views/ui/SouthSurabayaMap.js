@@ -489,13 +489,13 @@ const PopupExample = () => {
         </Col>
       </Row>
       <Row>
-        <Button
+        {/* <Button
           color="success"
           onClick={toggle}
           style={{ width: "auto", marginTop: "2vw" }}
         >
           View Modal Analysis
-        </Button>
+        </Button> */}
         <Button
           color="warning"
           onClick={handleClick}

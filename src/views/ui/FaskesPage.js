@@ -22,6 +22,7 @@ import L from "leaflet";
 import statesData from "./File-Map/JsonMap/28-tes.json";
 import Bangunan from "./File-Map/JsonMap/bangunan.json";
 import Pemukiman from "./File-Map/JsonMap/Pemukiman.json";
+import Pasar from "./File-Map/JsonMap/Pasar.json";
 import Chart from "react-apexcharts";
 import "leaflet/dist/leaflet.css";
 import LeafletRuler from "./File-Map/LeafletRuler";
@@ -60,6 +61,16 @@ const PopupExample = () => {
     iconUrl: require("./Surabaya-Timur.png").default,
     iconSize: new L.Point(30, 30),
   });
+
+  const iconMarket = new L.Icon({
+    iconUrl: require("./Market.png").default,
+    iconSize: new L.Point(20, 20),
+  });
+
+  const [isShowCrowd, setShowCrowd] = React.useState(false);
+  const handleClickCrowd = (event) => {
+    setShowCrowd((current) => !current);
+  };
 
   useEffect(() => {
     getFaskes();
@@ -126,8 +137,7 @@ const PopupExample = () => {
       text: "Address",
       sort: true,
     },
-
-  ]
+  ];
 
   const [map, setMap] = useState(null);
   return (
@@ -139,11 +149,46 @@ const PopupExample = () => {
               <i className="bi bi-link me-2"> </i>
               Welcome to Map spread of Facility and Hospital in Surabaya
             </CardTitle>
+            <CardBody>
+              <Button
+                style={{ margin: "auto" }}
+                color="primary"
+                onClick={handleClickCrowd}
+              >
+                Where's Crowds in different areas ?
+              </Button>
+              <Button
+                style={{ marginLeft: "20px" }}
+                color="warning"
+                onClick={handleClickCrowd}
+              >
+               Clear
+              </Button>
+            </CardBody>
           </Card>
         </Col>
       </Row>
 
       <Row>
+        <Col>
+          <Table>
+            <thead>
+              <tr>
+                <th>Element Map Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Bangunan</td>
+                <td>{Bangunan.features.length}</td>
+              </tr>
+              <tr>
+                <td>Pemukiman</td>
+                <td>{Pemukiman.features.length}</td>
+              </tr>
+            </tbody>
+          </Table>
+        </Col>
         <Col>
           <MapContainer
             center={[-7.2905636, 112.7692647]}
@@ -160,7 +205,7 @@ const PopupExample = () => {
             />
 
             <LeafletRuler />
-            <Legend map={map} />
+
             {statesData.features.map((state) => {
               const coordinates = state.geometry.coordinates[0][0].map(
                 (item) => [item[1], item[0]]
@@ -188,26 +233,60 @@ const PopupExample = () => {
               );
             })}
 
-            {Pemukiman.features.map((state) => {
-              const titik = state.geometry.coordinates[0][0].map((item) => [
-                item[1],
-                item[0],
-              ]);
-              return (
-                <Polygon
-                  pathOptions={{
-                    color: "yellow",
-                    fillOpacity: 0.7,
-                    weight: 2,
-                    opacity: 12,
-                    dashArray: 3,
-                  }}
-                  positions={titik}
-                >
-                  <Popup>Build Name : {state.properties.REMARK}</Popup>
-                </Polygon>
-              );
-            })}
+            {isShowCrowd &&
+              Pemukiman.features.map((state) => {
+                const titik = state.geometry.coordinates[0][0].map((item) => [
+                  item[1],
+                  item[0],
+                ]);
+                return (
+                  <Polygon
+                    pathOptions={{
+                      color: "yellow",
+                      fillOpacity: 0.7,
+                      weight: 2,
+                      opacity: 12,
+                      dashArray: 3,
+                    }}
+                    positions={titik}
+                  >
+                    <Popup>Build Name : {state.properties.REMARK}</Popup>
+                  </Polygon>
+                );
+              })}
+
+            {isShowCrowd &&
+              Bangunan.features.map((state) => {
+                const titik = state.geometry.coordinates[0][0].map((item) => [
+                  item[1],
+                  item[0],
+                ]);
+                return (
+                  <Polygon
+                    pathOptions={{
+                      color: "#f72905",
+                      fillOpacity: 0.7,
+                      weight: 2,
+                      opacity: 12,
+                      dashArray: 3,
+                    }}
+                    positions={titik}
+                  >
+                    <Popup>Build Name : {state.properties.REMARK}</Popup>
+                  </Polygon>
+                );
+              })}
+
+            {isShowCrowd &&
+              Pasar.features.map((state) => {
+                const titik = state.geometry.coordinates[1];
+                const titik2 = state.geometry.coordinates[0];
+                return (
+                  <Marker position={[titik, titik2]} icon={iconMarket}>
+                    <Popup>{state.properties.REMARK}</Popup>
+                  </Marker>
+                );
+              })}
 
             {faskes.map((row) =>
               row.demografi.bagian_wilayah == "Surabaya Utara" ? (
@@ -270,10 +349,10 @@ const PopupExample = () => {
           </MapContainer>
         </Col>
       </Row>
-      
+
       <Row>
         <Card>
-        <CardBody className="">
+          <CardBody className="">
             <BootstrapTable
               hover
               keyField={"id_faskes"}

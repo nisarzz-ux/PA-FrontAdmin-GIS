@@ -26,6 +26,8 @@ import Chart from "react-apexcharts";
 import "leaflet/dist/leaflet.css";
 import LeafletRuler from "./File-Map/LeafletRuler";
 import DatePicker from "react-datepicker";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import Moment from "moment";
@@ -41,6 +43,7 @@ const PopupExample = () => {
   const [faskes, setFaskes] = useState([]);
   const [date, setDate] = React.useState(new Date());
   const [modal, setModal] = React.useState(false);
+  const navigate = useNavigate();
 
   //View Dropdown Menu
   const [dropdownOpen, setOpen] = React.useState(false);
@@ -62,8 +65,6 @@ const PopupExample = () => {
   const [isMarkerFaskes, setMarkerFaskes] = React.useState(false);
 
   //View Polygon of Clasification Spread of Covid-19 Virus
-  const [isPolygonClassification, setPolygonClassification] =
-    React.useState(false);
 
   //Show and Close Menu
   const handleClick = (event) => {
@@ -84,18 +85,10 @@ const PopupExample = () => {
     setPolygonShowSpread((current) => !current);
   };
 
-  const handleClickPolygonClasification = (event) => {
-    setPolygonClassification((current) => !current);
-  };
-
-  const handleFaskes = (event) => {
-    setMarkerFaskes((current) => !current);
-  };
-
   const toggle = () => setModal(!modal);
   // Custom Icon on React-Leaflet
   const customIcon = new L.Icon({
-    iconUrl: require("./icons8-health-64.png").default,
+    iconUrl: require("./location.gif").default,
     iconSize: new L.Point(25, 25),
   });
 
@@ -120,15 +113,6 @@ const PopupExample = () => {
       });
   }
 
-  // function getFaskes() {
-  //   axios
-  //     .get("http://127.0.0.1:8000/api/faskesTabelAllData")
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       setFaskes(response.data);
-  //     });
-  // }
-
   function getColor(temp) {
     return temp == "Utara" ? (
       "#F38484"
@@ -149,8 +133,8 @@ const PopupExample = () => {
     // Green Color
     if (temp < 5) return "#05b534";
     else if (temp >= 5 && temp < 10) return "#eefa02";
-    else if (temp >= 10 && temp < 30) return "#fad905";
-    else if (temp >= 30) return "#faac05";
+    else if (temp >= 10 && temp < 30) return "#ffcd03";
+    else if (temp >= 30) return "#f50505";
     // else if (temp >= 7000 && temp < 9000) return "#3080ff";
     // else return "#f0868d";
   }
@@ -348,24 +332,18 @@ const PopupExample = () => {
               <i class="bi bi-activity"></i> Item Analysist This map
             </DropdownToggle>
             <DropdownMenu>
-              <DropdownItem onClick={handleClickPolygonClasification}>
-                Where Is Polygon Clasification spread of Covid-19 Virus ?
-              </DropdownItem>
-              <DropdownItem onClick={handleClickMarker}>
-                AnyWhere Show The Spread Marker ?
-              </DropdownItem>
-              <DropdownItem onClick={handleClickPolygon}>
-                Where Is Polygon zone of District on Surabaya ?
-              </DropdownItem>
               <DropdownItem onClick={handleClickPolygonSperead}>
                 {" "}
                 Where is the Potential Place for the Covid-19 Virus to Spread in
                 the City of Surabaya?
               </DropdownItem>
-              <DropdownItem onClick={handleFaskes}>
-                Where Is Facilty (Puskesmas) ?
-              </DropdownItem>
               <DropdownItem divider />
+              <DropdownItem onClick={handleClickMarker}>
+                AnyWhere Show The Spread Marker ?
+              </DropdownItem>
+              <DropdownItem href="/#/FaskesPage">
+                Where Is Facilty on Surabaya ?
+              </DropdownItem>
             </DropdownMenu>
           </ButtonDropdown>
 
@@ -398,7 +376,7 @@ const PopupExample = () => {
             whenCreated={setMap}
           >
             <TileLayer
-              // url="https://api.maptiler.com/maps/bright/256/{z}/{x}/{y}.png?key=lpeLyfYWXTj0KWkD2Ig6"
+              // url="https://api.maptiler.com/maps/jp-mierune-dark/{z}/{x}/{y}.png?key=JyzTa0CeXIgtKP7LpPnB"
               // attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
 
               attribution='&copy; <a href="https://www.openstreetmap.org/relation/8225862">OpenStreetMap</a> contributors'
@@ -407,37 +385,35 @@ const PopupExample = () => {
 
             <LeafletRuler />
 
-            {isPolygonShow &&
-              statesData.features.map((state) => {
-                const coordinates = state.geometry.coordinates[0][0].map(
-                  (item) => [item[1], item[0]]
-                );
-                console.log(coordinates);
-                return (
-                  <Polygon
-                    pathOptions={{
-                      fillColor: getColor(state.properties.Wilayah),
-                      fillOpacity: 0.7,
-                      weight: 2,
-                      opacity: 1,
-                      dashArray: 3,
-                      color: "white",
-                    }}
-                    positions={coordinates}
-                  >
-                    <Popup>
-                      District : {state.properties.KECAMATAN}
-                      <br />
-                      Area : {state.properties.Wilayah}
-                      <br />
-                      Zone : {state.properties.PERIMETER} Km / Square
-                    </Popup>
-                  </Polygon>
-                );
-              })}
+            {statesData.features.map((state) => {
+              const coordinates = state.geometry.coordinates[0][0].map(
+                (item) => [item[1], item[0]]
+              );
+              console.log(coordinates);
+              return (
+                <Polygon
+                  pathOptions={{
+                    fillColor: getColor(state.properties.Wilayah),
+                    fillOpacity: 0.7,
+                    weight: 2,
+                    opacity: 1,
+                    dashArray: 3,
+                    color: "white",
+                  }}
+                  positions={coordinates}
+                >
+                  <Popup>
+                    District : {state.properties.KECAMATAN}
+                    <br />
+                    Area : {state.properties.Wilayah}
+                    <br />
+                    Zone : {state.properties.PERIMETER} Km / Square
+                  </Popup>
+                </Polygon>
+              );
+            })}
 
-            {isPolygonClassification &&
-              september.length > 0 &&
+            {september.length > 0 &&
               statesData.features.map((state, index) => {
                 console.log(september[index].rawat);
                 // console.log(index, september[index])
@@ -457,10 +433,27 @@ const PopupExample = () => {
                     }}
                     positions={coordinatesAll}
                   >
-                    <Popup>
-                      District Name : {state.properties.KECAMATAN} <br />
-                      Status Level : PPKM level 1
-                    </Popup>
+                    {september[index].rawat < 5 ? (
+                      <Popup>
+                        District Name : {state.properties.KECAMATAN} <br />
+                        Status Level : PPKM level 1
+                      </Popup>
+                    ) : september[index].rawat < 10 ? (
+                      <Popup>
+                        District Name : {state.properties.KECAMATAN} <br />
+                        Status Level : PPKM level 2
+                      </Popup>
+                    ) : september[index].rawat < 30 ? (
+                      <Popup>
+                        District Name : {state.properties.KECAMATAN} <br />
+                        Status Level : PPKM level 3
+                      </Popup>
+                    ) : (
+                      <Popup>
+                        District Name : {state.properties.KECAMATAN} <br />
+                        Status Level : PPKM level 4
+                      </Popup>
+                    )}
                   </Polygon>
                 );
               })}
@@ -525,6 +518,8 @@ const PopupExample = () => {
                       {row.demografi.kecamatan} <br />
                       Area : {row.demografi.bagian_wilayah} <br />
                       Positif Case : {row.positif} <br />
+                      Cure Case : {row.sembuh} <br />
+                      On Treatment : {row.rawat} <br />
                       Date Case : {row.Tanggal} <br />
                     </Popup>
                   </Marker>
@@ -542,8 +537,6 @@ const PopupExample = () => {
                       Date Case : {row.Tanggal} <br />
                     </Popup>
                   </Marker>
-
-                  
                 </div>
               ))}
           </MapContainer>
@@ -565,14 +558,23 @@ const PopupExample = () => {
           View Analysis Recap
         </Button>
 
-        {isShown && (
-          <Chart
-            type="bar"
-            height={700}
-            options={chartoptions.options}
-            series={chartoptions.series}
-          ></Chart>
-        )}
+        {isShown &&
+          (september.length > 0 ? (
+            <Chart
+              type="bar"
+              height={700}
+              options={chartoptions.options}
+              series={chartoptions.series}
+            ></Chart>
+          ) : (
+            Swal.fire({
+              title: "This data doesnt input , please repeat again",
+              text: "Click the Button!",
+              icon: "error",
+              footer: '<a href="/">Back to Menu</a>'
+            })
+          
+          ))}
 
         <Modal isOpen={modal} toggle={toggle}>
           <ModalHeader toggle={toggle}>

@@ -92,21 +92,12 @@ const PopupExample = () => {
     );
   }
 
-  const selectOption = {
-    0: "good",
-    1: "Bad",
-    2: "unknown",
-  };
-
-  // Using Modal
-  const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
-
   //Show the Data of Positive Case
   const dataPositif = september.map((row) => {
-    return row.positif;
+     return row.positif;
   });
+
+  
 
   function getColorCompare(temp) {
     // Green Color
@@ -114,7 +105,6 @@ const PopupExample = () => {
     else if (temp >= 5 && temp < 10) return "#eefa02";
     else if (temp >= 10 && temp < 30) return "#fad905";
     else if (temp >= 30) return "#faac05";
-    
   }
 
   //Summary Data of Positive Case
@@ -142,7 +132,7 @@ const PopupExample = () => {
 
   // Show the care case of this day
   const dataRawat = september.map((row) => {
-   return row.rawat;
+    return row.rawat;
   });
 
   // Summary the care case
@@ -156,7 +146,7 @@ const PopupExample = () => {
 
   // Show the Deathly case of this day
   const dataMati = september.map((row) => {
-     return row.mati;
+    return row.mati;
   });
 
   // Summary the Deathly case
@@ -169,10 +159,10 @@ const PopupExample = () => {
   const maxMati = Math.max(...dataMati);
 
   const dataKecamatan = september.map((row) => {
-      return row.demografi.kecamatan;
+    return row.demografi.kecamatan;
   });
 
-  console.log("kecamatan",dataKecamatan)
+  console.log("kecamatan", dataKecamatan);
 
   const allCoordinate = statesData.features.map((state) => {
     return state.geometry.coordinates[0][0].map((item) => [item[1], item[0]]);
@@ -304,7 +294,7 @@ const PopupExample = () => {
                   (item) => [item[1], item[0]]
                 );
 
-                return state.properties.Wilayah == "Utara" ? (
+                return state.properties.Wilayah === "Utara" ? (
                   <Polygon
                     pathOptions={{
                       fillColor: getColorCompare(september[index].rawat),
@@ -508,13 +498,13 @@ const PopupExample = () => {
         </Col>
       </Row>
       <Row>
-        <Button
+        {/* <Button
           color="success"
           onClick={toggle}
           style={{ width: "auto", marginTop: "2vw" }}
         >
           View Modal Analysis
-        </Button>
+        </Button> */}
         <Button
           color="warning"
           onClick={handleClick}

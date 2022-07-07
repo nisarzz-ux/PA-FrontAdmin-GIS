@@ -1,0 +1,1013 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.65802408200011,
+            -7.255714628999954,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.66800737200003,
+            -7.259367262999945,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.678797454,
+            -7.259539794999966,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.66211152000005,
+            -7.260243371999934,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.74275183400005,
+            -7.274623595999969,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.72708103200011,
+            -7.274913545999937,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.69868238700008,
+            -7.28414492099995,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.73151541800007,
+            -7.284986576999927,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.74309103000007,
+            -7.286554812999952,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.72553897500006,
+            -7.294570359999966,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.70917919400006,
+            -7.31625956299996,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.69481983800006,
+            -7.342045935999977,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.79167782400009,
+            -7.258717341999954,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.76241448100006,
+            -7.282057097999939,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.76156976000004,
+            -7.282158940999977,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.75300438500005,
+            -7.284143677999964,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.75381248100007,
+            -7.29605997699997,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.76038966100009,
+            -7.297221836999938,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.79761650000012,
+            -7.305940850999946,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.79826905000004,
+            -7.311648501999969,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.60956691400008,
+            -7.235103925999965,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.73261538800011,
+            -7.216284486999939,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.73776242600002,
+            -7.221795989999976,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.74247569800002,
+            -7.222481917999971,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.73526399000002,
+            -7.226884206999955,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.7454969900001,
+            -7.226976070999967,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.70754141200007,
+            -7.229460131999929,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.7470996400001,
+            -7.231610984999975,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.742656796,
+            -7.233021339999937,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.73249211600012,
+            -7.237041232999957,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.71649890200001,
+            -7.238812717999963,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.74881896800002,
+            -7.239493600999936,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.74532252400002,
+            -7.241540427999951,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.71878955500006,
+            -7.243438411999932,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.73399829000005,
+            -7.244712466999943,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.71470165400001,
+            -7.245660247999979,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.74927684900001,
+            -7.247711976999938,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.63530936200004,
+            -7.249961732999964,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.76023159600004,
+            -7.217815678999955,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.75773433600011,
+            -7.232687278999947,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.77293029000009,
+            -7.233847481999931,
+            0
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "FUNGSI": 999,
+          "FCODE": null,
+          "REMARK": "Pusat Bisnis dan Perdagangan Lainnya",
+          "SRS_ID": null,
+          "LCODE": "GB0020",
+          "METADATA": null,
+          "FGSKOD": 999,
+          "JNSPSR": 0,
+          "JNSTKO": 0,
+          "JNSKTR": 0,
+          "PRSTRP": 0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            112.7586111390001,
+            -7.248084019999965,
+            0
+          ]
+        }
+      }
+    ]
+  }
