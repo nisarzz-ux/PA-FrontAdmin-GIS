@@ -77,31 +77,21 @@ const PopupExample = () => {
   }
 
   function getColor(temp) {
-    return temp == "Utara" ? (
+    return temp === "Utara" ? (
       "#F38484"
-    ) : temp == "Pusat" ? (
+    ) : temp === "Pusat" ? (
       "#D597F9"
-    ) : temp == "Timur" ? (
+    ) : temp === "Timur" ? (
       "#ACC715"
-    ) : temp == "Selatan" ? (
+    ) : temp === "Selatan" ? (
       "#EC9949"
-    ) : temp == "Barat" ? (
+    ) : temp === "Barat" ? (
       "#4C51EF"
     ) : (
       <div></div>
     );
   }
 
-  const selectOption = {
-    0: "good",
-    1: "Bad",
-    2: "unknown",
-  };
-
-  // Using Modal
-  const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
 
   //Show the Data of Positive Case
   const dataPositif = september.map((row) => {
@@ -278,45 +268,6 @@ const PopupExample = () => {
       </Row>
 
       <Row>
-        {/* <Col>
-          <Table striped style={{ height: "auto", width: "50vw" }}>
-            <thead>
-              <tr>
-                <th>District Name</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody style={{ marginBottom: "auto" }}>
-              {september.map((row) =>
-                row.demografi.bagian_wilayah == "Surabaya Timur" ? (
-                  row.rawat < 5 ? (
-                    <tr>
-                      <td>{row.demografi.kecamatan}</td>
-                      <td>This Area of Level 1 of PPKM</td>
-                    </tr>
-                  ) : row.rawat < 10 ? (
-                    <tr>
-                      <td>{row.demografi.kecamatan}</td>
-                      <td>This Area of Level 2 of PPKM</td>
-                    </tr>
-                  ) : row.rawat < 30 ? (
-                    <tr>
-                      <td>{row.demografi.kecamatan}</td>
-                      <td>This Area of Level 3 of PPKM</td>
-                    </tr>
-                  ) : (
-                    <tr>
-                      <td>{row.demografi.kecamatan}</td>
-                      <td>This Area of Level 4 of PPKM</td>
-                    </tr>
-                  )
-                ) : (
-                  <div></div>
-                )
-              )}
-            </tbody>
-          </Table>
-        </Col> */}
         <Col>
           <MapContainer
             center={[-7.2905636, 112.7692647]}
@@ -462,7 +413,7 @@ const PopupExample = () => {
             <Legend map={map} />
 
             {september.map((row) =>
-              row.demografi.bagian_wilayah == "Surabaya Timur" ? (
+              row.demografi.bagian_wilayah === "Surabaya Timur" ? (
                 <Marker
                   position={[
                     row.demografi.latKoordinat,
@@ -483,7 +434,7 @@ const PopupExample = () => {
             )}
 
             {september.map((row) =>
-              row.demografi.bagian_wilayah == "Surabaya Timur" ? (
+              row.demografi.bagian_wilayah === "Surabaya Timur" ? (
                 <Marker
                   position={[
                     row.demografi.latKoordinat - 0.01,

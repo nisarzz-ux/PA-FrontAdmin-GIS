@@ -6,9 +6,9 @@ import { Container } from "reactstrap";
 const FullLayout = () => {
   return (
     <main>
-      <div className="pageWrapper d-lg-flex">
+      <div className="pageWrapper d-lg-flex" style={{color:"ActiveBorder"}}>
         {/********Sidebar**********/}
-        <aside className="sidebarArea shadow" id="sidebarArea" color="secondary">
+        <aside className="sidebarArea shadow" id="sidebarArea" color="#010814">
           <Sidebar  />
         </aside>
         {/********Content Area**********/}
@@ -17,7 +17,7 @@ const FullLayout = () => {
           {/********header**********/}
           <Header />
           {/********Middle Content**********/}
-          <Container className="p-4 wrapper" fluid color="secondary">
+          <Container className="p-4 wrapper" fluid >
             <Outlet />
           </Container>
         </div>

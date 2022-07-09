@@ -7,6 +7,7 @@ import {
   CardBody,
   Button,
   CardGroup,
+  Table,
 } from "reactstrap";
 import DatePicker from "react-datepicker";
 import BootstrapTable from "react-bootstrap-table-next";
@@ -57,12 +58,11 @@ const Tables = () => {
   }
 
   function updateData(id) {
-    navigate("/editData/" + id)
+    navigate("/editData/" + id);
   }
 
   let districtFilter;
   let areaFilter;
- 
 
   const columns = [
     {
@@ -96,7 +96,6 @@ const Tables = () => {
     { dataField: "sembuh", text: "Cure", sort: true },
     { dataField: "mati", text: "Death", sort: true },
     { dataField: "rawat", text: "On Treatment ", sort: true },
-
     {
       dataField: "id_tableSep",
       text: "Action",
@@ -119,9 +118,6 @@ const Tables = () => {
             >
               <i class="bi bi-cloud-download"></i>
               Update
-              {/* <i class="bi bi-cloud-download"></i>
-              <a href={"/#/editData/" + row.id_tableSep}
-              style={{color:"white"}}>Update</a> */}
             </Button>
           </CardGroup>
         );

@@ -102,7 +102,7 @@ const SalesChart = () => {
     return row.demografi.kecamatan;
   });
 
-  const chartoptions = {
+  const chartoptionsGraphics = {
     series: [
       {
         name: "Positif",
@@ -190,8 +190,8 @@ const SalesChart = () => {
           type="area"
           width="100%"
           height="390"
-          options={chartoptions.options}
-          series={chartoptions.series}
+          options={chartoptionsGraphics.options}
+          series={chartoptionsGraphics.series}
         ></Chart>
       </CardBody>
 
@@ -214,9 +214,6 @@ const SalesChart = () => {
         </CardTitle>
       </CardBody>
 
-      <Button color="success" onClick={toggle}>
-        View Analysis
-      </Button>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>
           Analysis of cases of the spread of the covid-19 virus on that day
@@ -230,30 +227,6 @@ const SalesChart = () => {
           </Button>
         </ModalFooter>
       </Modal>
-
-      {/* <CardBody>
-        <CardTitle tag="h5">
-          Analysis and Find Maximum Case on this day
-        </CardTitle>
-        <Table striped>
-          <thead>
-            <tr>
-              <th>Positive Case</th>
-              <th>Cure Case</th>
-              <th>Deathly Case</th>
-              <th>On Care Case</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{maxPositif}</td>
-              <td>{maxSembuh}</td>
-              <td>{maxMati}</td>
-              <td>{maxRawat}</td>
-            </tr>
-          </tbody>
-        </Table>
-      </CardBody> */}
     </Card>
   );
 };

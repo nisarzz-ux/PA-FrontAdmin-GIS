@@ -77,32 +77,20 @@ const PopupExample = () => {
   }
 
   function getColor(temp) {
-    return temp == "Utara" ? (
+    return temp === "Utara" ? (
       "#F38484"
-    ) : temp == "Pusat" ? (
+    ) : temp === "Pusat" ? (
       "#D597F9"
-    ) : temp == "Timur" ? (
+    ) : temp === "Timur" ? (
       "#ACC715"
-    ) : temp == "Selatan" ? (
+    ) : temp === "Selatan" ? (
       "#EC9949"
-    ) : temp == "Barat" ? (
+    ) : temp === "Barat" ? (
       "#4C51EF"
     ) : (
       <div></div>
     );
   }
-
-  const selectOption = {
-    0: "good",
-    1: "Bad",
-    2: "unknown",
-  };
-
-  // Using Modal
-  const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
-
   //Show the Data of Positive Case
   const dataPositif = september.map((row) => {
     return row.positif;

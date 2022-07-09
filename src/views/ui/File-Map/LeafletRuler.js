@@ -9,7 +9,6 @@ export default function LeafletRuler() {
 
   useEffect(() => {
     if (!map) return;
-
     L.control.ruler().addTo(map);
   }, [map]);
 

@@ -1,4 +1,4 @@
-import { Button, CardTitle, Nav, NavItem } from "reactstrap";
+import { Button, CardTitle, Nav, NavItem, ButtonDropdown, DropdownItem } from "reactstrap";
 import { Link, useLocation } from "react-router-dom";
 
 const navigation = [
@@ -55,27 +55,17 @@ const navigation = [
     icon: "bi bi-textarea-resize",
   },
 
-  // {
-  //   title: "Form-Update",
-  //   href: "/editData/:id",
-  //   icon: "bi bi-textarea-resize",
-  // },
-  // {
-  //   title: "Breadcrumbs",
-  //   href: "/breadcrumbs",
-  //   icon: "bi bi-link",
-  // },
   {
     title: "About",
     href: "/about",
     icon: "bi bi-people",
   },
 
-  {
-    title: "Line Chart Analysist",
-    href: "/LineChart",
-    icon: "bi bi-speedometer2",
-  },
+  // {
+  //   title: "Line Chart Analysist",
+  //   href: "/LineChart",
+  //   icon: "bi bi-speedometer2",
+  // },
 
   {
     title: "Health of Facility",
@@ -92,10 +82,10 @@ const Sidebar = () => {
   let location = useLocation();
 
   return (
-    <div className="p-3">
+    <div className="p-3" >
       <div className="d-flex align-items-center">
-        <CardTitle tag="h6" className="border-bottom p-5 mb-0">
-          <i class="bi bi-calendar3-week-fill"></i> System Analysis
+        <CardTitle tag="h6" className="border-bottom p-5 mb-0" color="#095ded">
+          <i class="bi bi-calendar3-week-fill" style={{width:"auto"}}>Welcome</i> 
         </CardTitle>
         <Button
           close
@@ -104,7 +94,7 @@ const Sidebar = () => {
           onClick={() => showMobilemenu()}
         ></Button>
       </div>
-      <div className="pt-4 mt-2" color="#6f9ee8">
+      <div className="pt-4 mt-2" style={{color:"#095ded"}}>
         <Nav vertical className="sidebarNav">
           {navigation.map((navi, index) => (
             <NavItem key={index} className="sidenav-bg">
@@ -121,15 +111,6 @@ const Sidebar = () => {
               </Link>
             </NavItem>
           ))}
-          {/* <Button
-            color="danger"
-            tag="a"
-            target="_blank"
-            className="mt-3"
-            href="https://www.wrappixel.com/templates/xtreme-react-redux-admin/?ref=33"
-          >
-            Upgrade To Pro
-          </Button> */}
         </Nav>
       </div>
     </div>

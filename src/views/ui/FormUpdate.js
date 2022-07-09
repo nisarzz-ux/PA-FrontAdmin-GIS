@@ -55,12 +55,11 @@ const FormUpdate = (...props) => {
         "http://127.0.0.1:8000/api/september_show/" + params.id
       )
       .then((response) => {
-        console.log("data masuk ", response.data[0]);
-        setDemografiId(response.data.demografi_id);
-        setPositif(response.data.positif);
-        setSembuh(response.data.sembuh);
-        setMati(response.data.mati);
-        setRawat(response.data.rawat);
+        setDemografiId(response.data[0].demografi_id);
+        setPositif(response.data[0].positif);
+        setSembuh(response.data[0].sembuh);
+        setMati(response.data[0].mati);
+        setRawat(response.data[0].rawat);
       });
     getData();
   }, []);

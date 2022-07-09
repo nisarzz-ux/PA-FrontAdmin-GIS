@@ -19,6 +19,7 @@ import {
   BreadcrumbItem,
   Card,
   CardBody,
+  CardSubtitle,
 } from "reactstrap";
 
 import "./File-Map/Map.css";
@@ -60,11 +61,6 @@ const PopupExample = () => {
 
   //View Marker of Clasification Class
   const [isMarker, setMarker] = React.useState(false);
-
-  //view Marker of Healty Facilityion
-  const [isMarkerFaskes, setMarkerFaskes] = React.useState(false);
-
-  //View Polygon of Clasification Spread of Covid-19 Virus
 
   //Show and Close Menu
   const handleClick = (event) => {
@@ -114,15 +110,15 @@ const PopupExample = () => {
   }
 
   function getColor(temp) {
-    return temp == "Utara" ? (
+    return temp === "Utara" ? (
       "#F38484"
-    ) : temp == "Pusat" ? (
+    ) : temp === "Pusat" ? (
       "#D597F9"
-    ) : temp == "Timur" ? (
+    ) : temp === "Timur" ? (
       "#ACC715"
-    ) : temp == "Selatan" ? (
+    ) : temp === "Selatan" ? (
       "#EC9949"
-    ) : temp == "Barat" ? (
+    ) : temp === "Barat" ? (
       "#4C51EF"
     ) : (
       <div></div>
@@ -135,14 +131,7 @@ const PopupExample = () => {
     else if (temp >= 5 && temp < 10) return "#eefa02";
     else if (temp >= 10 && temp < 30) return "#ffcd03";
     else if (temp >= 30) return "#f50505";
-    // else if (temp >= 7000 && temp < 9000) return "#3080ff";
-    // else return "#f0868d";
   }
-
-  // Using Modal
-  const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
 
   //Show the Data of Positive Case
   const dataPositif = september.map((row) => {
@@ -212,9 +201,45 @@ const PopupExample = () => {
     return row.demografi.kecamatan;
   });
 
-  const allCoordinate = statesData.features.map((state) => {
-    return state.geometry.coordinates[0][0].map((item) => [item[1], item[0]]);
-  });
+  const chartoptionsGraphics = {
+    series: [
+      {
+        name: "Positif",
+        data: dataPositif,
+      },
+      {
+        name: "Sembuh",
+        data: dataSembuh,
+      },
+      {
+        name: "Rawat",
+        data: dataRawat,
+      },
+      {
+        name: "Mati",
+        data: dataMati,
+      },
+    ],
+    options: {
+      chart: {
+        type: "area",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      grid: {
+        strokeDashArray: 3,
+      },
+
+      stroke: {
+        curve: "smooth",
+        width: 2,
+      },
+      xaxis: {
+        categories: dataKecamatan,
+      },
+    },
+  };
 
   const chartoptions = {
     series: [
@@ -273,22 +298,6 @@ const PopupExample = () => {
   let ppkm1 = 0;
   return (
     <div>
-      <Row>
-        <Col>
-          <Card>
-            <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-              <i className="bi bi-link me-2"> </i>
-              Welcome To Surabaya Map
-            </CardTitle>
-            <CardBody className="">
-              <Breadcrumb>
-                <BreadcrumbItem active>Surabaya City Map</BreadcrumbItem>
-              </Breadcrumb>
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
-
       <Row style={{ margin: "auto" }}>
         <CardTitle
           tag="h6"
@@ -314,6 +323,34 @@ const PopupExample = () => {
 
       <Row>
         <Col>
+          <Card>
+            <CardTitle tag="h6" className="border-bottom p-3 mb-0">
+              <i className="bi bi-link me-2"> </i>
+              Welcome To Surabaya Map
+            </CardTitle>
+            <CardBody className="">
+              <Breadcrumb>
+                <BreadcrumbItem active>Surabaya City Map</BreadcrumbItem>
+              </Breadcrumb>
+
+              <CardTitle tag="h5">Virus Recap</CardTitle>
+              <CardSubtitle className="text-muted" tag="h6">
+                Virus Recap Of The Month
+              </CardSubtitle>
+              <Chart
+                type="area"
+                width="100%"
+                height="390"
+                options={chartoptionsGraphics.options}
+                series={chartoptionsGraphics.series}
+              ></Chart>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
           <CardTitle
             tag="h6"
             className="border-bottom p-3 m-auto"
@@ -332,15 +369,18 @@ const PopupExample = () => {
               <i class="bi bi-activity"></i> Item Analysist This map
             </DropdownToggle>
             <DropdownMenu>
+              <DropdownItem onClick={handleClickPolygon}>
+                Can Show this District By Area ?
+              </DropdownItem>
+              <DropdownItem onClick={handleClickMarker}>
+                AnyWhere Show The Spread Marker ?
+              </DropdownItem>
               <DropdownItem onClick={handleClickPolygonSperead}>
                 {" "}
                 Where is the Potential Place for the Covid-19 Virus to Spread in
                 the City of Surabaya?
               </DropdownItem>
               <DropdownItem divider />
-              <DropdownItem onClick={handleClickMarker}>
-                AnyWhere Show The Spread Marker ?
-              </DropdownItem>
               <DropdownItem href="/#/FaskesPage">
                 Where Is Facilty on Surabaya ?
               </DropdownItem>
@@ -378,9 +418,11 @@ const PopupExample = () => {
             <TileLayer
               // url="https://api.maptiler.com/maps/jp-mierune-dark/{z}/{x}/{y}.png?key=JyzTa0CeXIgtKP7LpPnB"
               // attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
-
-              attribution='&copy; <a href="https://www.openstreetmap.org/relation/8225862">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
+              maxZoom={20}
+              subdomains={["mt1", "mt2", "mt3"]}
+              // attribution='&copy; <a href="https://www.openstreetmap.org/relation/8225862">OpenStreetMap</a> contributors'
+              // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
             <LeafletRuler />
@@ -571,9 +613,8 @@ const PopupExample = () => {
               title: "This data doesnt input , please repeat again",
               text: "Click the Button!",
               icon: "error",
-              footer: '<a href="/">Back to Menu</a>'
+              footer: '<a href="/">Back to Menu</a>',
             })
-          
           ))}
 
         <Modal isOpen={modal} toggle={toggle}>

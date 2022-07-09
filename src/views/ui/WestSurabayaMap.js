@@ -77,15 +77,15 @@ const PopupExample = () => {
   }
 
   function getColor(temp) {
-    return temp == "Utara" ? (
+    return temp === "Utara" ? (
       "#F38484"
-    ) : temp == "Pusat" ? (
+    ) : temp === "Pusat" ? (
       "#D597F9"
-    ) : temp == "Timur" ? (
+    ) : temp === "Timur" ? (
       "#ACC715"
-    ) : temp == "Selatan" ? (
+    ) : temp === "Selatan" ? (
       "#EC9949"
-    ) : temp == "Barat" ? (
+    ) : temp === "Barat" ? (
       "#4C51EF"
     ) : (
       <div></div>
