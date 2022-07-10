@@ -29,6 +29,7 @@ import Pemukiman from "./File-Map/JsonMap/Pemukiman.json";
 import Chart from "react-apexcharts";
 import "leaflet/dist/leaflet.css";
 import LeafletRuler from "./File-Map/LeafletRuler";
+import Swal from "sweetalert2";
 
 const PopupExample = () => {
   const [september, setSeptember] = useState([]);
@@ -73,6 +74,8 @@ const PopupExample = () => {
       .then((response) => {
         console.log(response.data);
         setSeptember(response.data == [] ? [] : response.data);
+        Swal.fire("Hello ", "Welcome to The North Surabaya Map", "success");
+
       });
   }
 

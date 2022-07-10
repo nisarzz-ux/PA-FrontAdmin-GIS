@@ -45,9 +45,10 @@ const navigation = [
   },
 
   {
-    title: "Table",
+    title: "Spread Table",
     href: "/table",
-    icon: "bi bi-layout-split",
+    icon: "bi bi-table",
+    
   },
   {
     title: "Forms",
@@ -61,11 +62,7 @@ const navigation = [
     icon: "bi bi-people",
   },
 
-  // {
-  //   title: "Line Chart Analysist",
-  //   href: "/LineChart",
-  //   icon: "bi bi-speedometer2",
-  // },
+ 
 
   {
     title: "Health of Facility",
@@ -85,7 +82,7 @@ const Sidebar = () => {
     <div className="p-3" >
       <div className="d-flex align-items-center">
         <CardTitle tag="h6" className="border-bottom p-5 mb-0" color="#095ded">
-          <i class="bi bi-calendar3-week-fill" style={{width:"auto"}}>Welcome</i> 
+          <i  class="bi bi-calendar3-week-fill" style={{width:"auto"}}>System Analysist</i> 
         </CardTitle>
         <Button
           close

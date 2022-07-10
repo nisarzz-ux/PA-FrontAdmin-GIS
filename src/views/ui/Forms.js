@@ -65,7 +65,7 @@ const Forms = () => {
           button: "back",
           // timer: 10000
         });
-        navigate("/")
+        navigate("/forms")
         // window.setTimeout(function(){},10000);
       })
       .catch((error) => {

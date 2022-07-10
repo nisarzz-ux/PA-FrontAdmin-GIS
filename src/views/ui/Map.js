@@ -29,11 +29,12 @@ import LeafletRuler from "./File-Map/LeafletRuler";
 import DatePicker from "react-datepicker";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import TopCards from "../../components/dashboard/TopCards";
+
 
 import axios from "axios";
 import Moment from "moment";
 import L from "leaflet";
-import { GoEye } from "react-icons/go";
 
 import statesData from "./File-Map/JsonMap/28-tes.json";
 import Bangunan from "./File-Map/JsonMap/bangunan.json";
@@ -41,7 +42,6 @@ import Pemukiman from "./File-Map/JsonMap/Pemukiman.json";
 
 const PopupExample = () => {
   const [september, setSeptember] = useState([]);
-  const [faskes, setFaskes] = useState([]);
   const [date, setDate] = React.useState(new Date());
   const [modal, setModal] = React.useState(false);
   const navigate = useNavigate();
@@ -49,6 +49,10 @@ const PopupExample = () => {
   //View Dropdown Menu
   const [dropdownOpen, setOpen] = React.useState(false);
   const toggleButton = () => setOpen(!dropdownOpen);
+
+  //View Dropdown Map
+  const [dropdownOpenMap, setOpenMap] = React.useState(false);
+  const toggleButtonMap = () => setOpenMap(!dropdownOpenMap);
 
   // View Analyst Recap or Not
   const [isShown, setIsShown] = React.useState(false);
@@ -61,6 +65,21 @@ const PopupExample = () => {
 
   //View Marker of Clasification Class
   const [isMarker, setMarker] = React.useState(false);
+
+  //View Using Satelite Map
+  const [isSateliteMap, setSateliteMap] = React.useState(false);
+
+  // View Using EPSG Map
+  const [isEPSGMap, setEPSGMap] = React.useState(false);
+
+  //Show and Close Menu
+  const handleSateliteMap = (event) => {
+    setSateliteMap((current) => !current);
+  };
+
+  const handleEPSGMap = (event) => {
+    setEPSGMap((current) => !current);
+  };
 
   //Show and Close Menu
   const handleClick = (event) => {
@@ -84,12 +103,22 @@ const PopupExample = () => {
   const toggle = () => setModal(!modal);
   // Custom Icon on React-Leaflet
   const customIcon = new L.Icon({
-    iconUrl: require("./location.gif").default,
+    iconUrl: require("./iconPlus.png").default,
     iconSize: new L.Point(25, 25),
   });
 
   const ripIcon = new L.Icon({
     iconUrl: require("./icons8-death-64.png").default,
+    iconSize: new L.Point(20, 20),
+  });
+
+  const positifIcon = new L.Icon({
+    iconUrl: require("./redCircle.png").default,
+    iconSize: new L.Point(25, 25),
+  });
+
+  const deathIcon = new L.Icon({
+    iconUrl: require("./yellowCircle.png").default,
     iconSize: new L.Point(20, 20),
   });
 
@@ -104,11 +133,26 @@ const PopupExample = () => {
           Moment(filteredDate).format("YYYY-MM-DD")
       )
       .then((response) => {
-        console.log(response.data);
         setSeptember(response.data == [] ? [] : response.data);
       });
   }
 
+  function getColorLurah(temp) {
+    return temp === "Surabaya Utara" ? (
+      "#F38484"
+    ) : temp === "Surabaya Pusat" ? (
+      "#D597F9"
+    ) : temp === "Surabaya Timur" ? (
+      "#ACC715"
+    ) : temp === "Surabaya Selatan" ? (
+      "#EC9949"
+    ) : temp === "Surabaya Barat" ? (
+      "#4C51EF"
+    ) : (
+      <div></div>
+    );
+  }
+  //Clasification About Area
   function getColor(temp) {
     return temp === "Utara" ? (
       "#F38484"
@@ -126,11 +170,14 @@ const PopupExample = () => {
   }
 
   function getColorCompare(temp) {
-    // Green Color
-    if (temp < 5) return "#05b534";
-    else if (temp >= 5 && temp < 10) return "#eefa02";
-    else if (temp >= 10 && temp < 30) return "#ffcd03";
-    else if (temp >= 30) return "#f50505";
+    // PPKM Level 1 (Green)
+    if (temp < 1) return "#05b534";
+    // PPKM Level 2 (Yellow)
+    else if (temp <= 1) return "#eefa02";
+    // PPKM Level 3 (Orange)
+    else if (temp >= 2 && temp < 5) return "#fad905";
+    // PPKM Level 4 (Red)
+    else if (temp >= 5) return "#fa0202";
   }
 
   //Show the Data of Positive Case
@@ -295,7 +342,6 @@ const PopupExample = () => {
   };
 
   const [map, setMap] = useState(null);
-  let ppkm1 = 0;
   return (
     <div>
       <Row style={{ margin: "auto" }}>
@@ -329,10 +375,43 @@ const PopupExample = () => {
               Welcome To Surabaya Map
             </CardTitle>
             <CardBody className="">
-              <Breadcrumb>
-                <BreadcrumbItem active>Surabaya City Map</BreadcrumbItem>
-              </Breadcrumb>
+              <Row>
+                <Col sm="6" lg="3">
+                  <TopCards
+                    bg="bg-light-success text-success"
+                    subtitle="Positive Case Virus"
+                    earning={resultPositif}
+                    icon="bi bi-binoculars"
+                  />
+                </Col>
 
+                <Col sm="6" lg="3">
+                  <TopCards
+                    bg="bg-light-danger text-danger"
+                    subtitle="On Care Case"
+                    earning={resultRawat}
+                    icon="bi bi-hospital"
+                  />
+                </Col>
+
+                <Col sm="6" lg="3">
+                  <TopCards
+                    bg="bg-light-info text-into"
+                    subtitle="Deathly Case"
+                    earning={resultMati}
+                    icon="bi bi-bandaid-fill"
+                  />
+                </Col>
+
+                <Col sm="6" lg="3">
+                  <TopCards
+                    bg="bg-light-warning text-warning"
+                    subtitle="Cure Case Of The Day"
+                    earning={resultSembuh}
+                    icon="bi bi-heart-fill"
+                  />
+                </Col>
+              </Row>
               <CardTitle tag="h5">Virus Recap</CardTitle>
               <CardSubtitle className="text-muted" tag="h6">
                 Virus Recap Of The Month
@@ -348,7 +427,33 @@ const PopupExample = () => {
           </Card>
         </Col>
       </Row>
-
+      <Row>
+        <CardBody>
+          <CardTitle
+            tag="h6"
+            className="border-bottom p-3 m-auto"
+            style={{ marginTop: "10px" }}
+          >
+            {" "}
+            Choice The Using Map
+            <ButtonDropdown
+              isOpen={dropdownOpenMap}
+              toggle={toggleButtonMap}
+              style={{ marginTop: "auto", height: "auto", display: "block" }}
+            >
+              <DropdownToggle caret color="primary">
+                <i class="bi bi-pin-map"></i> Option Menu
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem onClick={handleSateliteMap}>
+                  OpenStreetMap
+                </DropdownItem>
+                <DropdownItem onClick={handleEPSGMap}>EPSG Map</DropdownItem>
+              </DropdownMenu>
+            </ButtonDropdown>
+          </CardTitle>
+        </CardBody>
+      </Row>
       <Row>
         <Col>
           <CardTitle
@@ -415,58 +520,67 @@ const PopupExample = () => {
             scrollWheelZoom={true}
             whenCreated={setMap}
           >
+            {isSateliteMap && (
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/relation/8225862">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+            )}
+
+            {isEPSGMap && (
+              <TileLayer
+                url="https://api.maptiler.com/maps/jp-mierune-dark/{z}/{x}/{y}.png?key=JyzTa0CeXIgtKP7LpPnB"
+                attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+              />
+            )}
+
             <TileLayer
-              // url="https://api.maptiler.com/maps/jp-mierune-dark/{z}/{x}/{y}.png?key=JyzTa0CeXIgtKP7LpPnB"
-              // attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
               url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
               maxZoom={20}
               subdomains={["mt1", "mt2", "mt3"]}
-              // attribution='&copy; <a href="https://www.openstreetmap.org/relation/8225862">OpenStreetMap</a> contributors'
-              // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
             <LeafletRuler />
 
-            {statesData.features.map((state) => {
-              const coordinates = state.geometry.coordinates[0][0].map(
-                (item) => [item[1], item[0]]
-              );
-              console.log(coordinates);
-              return (
-                <Polygon
-                  pathOptions={{
-                    fillColor: getColor(state.properties.Wilayah),
-                    fillOpacity: 0.7,
-                    weight: 2,
-                    opacity: 1,
-                    dashArray: 3,
-                    color: "white",
-                  }}
-                  positions={coordinates}
-                >
-                  <Popup>
-                    District : {state.properties.KECAMATAN}
-                    <br />
-                    Area : {state.properties.Wilayah}
-                    <br />
-                    Zone : {state.properties.PERIMETER} Km / Square
-                  </Popup>
-                </Polygon>
-              );
-            })}
-
-            {september.length > 0 &&
-              statesData.features.map((state, index) => {
-                console.log(september[index].rawat);
-                // console.log(index, september[index])
-                const coordinatesAll = state.geometry.coordinates[0][0].map(
+            {
+              statesData.features.map((state) => {
+                const coordinates = state.geometry.coordinates[0][0].map(
                   (item) => [item[1], item[0]]
                 );
-
+                console.log(coordinates);
                 return (
                   <Polygon
                     pathOptions={{
-                      fillColor: getColorCompare(september[index].rawat),
+                      fillColor: getColor(state.properties.Wilayah),
+                      fillOpacity: 0.7,
+                      weight: 2,
+                      opacity: 1,
+                      dashArray: 3,
+                      color: "white",
+                    }}
+                    positions={coordinates}
+                  >
+                    <Popup>
+                      District : {state.properties.KECAMATAN}
+                      <br />
+                      Area : {state.properties.Wilayah}
+                      <br />
+                      Zone : {state.properties.PERIMETER} Km / Square
+                    </Popup>
+                  </Polygon>
+                );
+              })}
+
+            {
+              september.length > 0 &&
+              statesData.features.map((state, index) => {
+                const coordinatesAll = state.geometry.coordinates[0][0].map(
+                  (item) => [item[1], item[0]]
+                );
+                return (
+                  <Polygon
+                    pathOptions={{
+                      fillColor: getColorCompare(september[index].mati),
                       fillOpacity: 0.7,
                       weight: 2,
                       opacity: 1,
@@ -475,17 +589,17 @@ const PopupExample = () => {
                     }}
                     positions={coordinatesAll}
                   >
-                    {september[index].rawat < 5 ? (
+                    {september[index].mati < 1 ? (
                       <Popup>
                         District Name : {state.properties.KECAMATAN} <br />
                         Status Level : PPKM level 1
                       </Popup>
-                    ) : september[index].rawat < 10 ? (
+                    ) : september[index].mati === 1 ? (
                       <Popup>
                         District Name : {state.properties.KECAMATAN} <br />
                         Status Level : PPKM level 2
                       </Popup>
-                    ) : september[index].rawat < 30 ? (
+                    ) : september[index].mati < 5 ? (
                       <Popup>
                         District Name : {state.properties.KECAMATAN} <br />
                         Status Level : PPKM level 3
@@ -560,7 +674,6 @@ const PopupExample = () => {
                       {row.demografi.kecamatan} <br />
                       Area : {row.demografi.bagian_wilayah} <br />
                       Positif Case : {row.positif} <br />
-                      Cure Case : {row.sembuh} <br />
                       On Treatment : {row.rawat} <br />
                       Date Case : {row.Tanggal} <br />
                     </Popup>
