@@ -78,7 +78,7 @@ const PopupExample = () => {
 
   function getFaskes() {
     axios
-      .get("http://127.0.0.1:8000/api/faskesTabelAllData")
+      .get("http://103.183.74.242:8000/api/faskesTabelAllData")
       .then((response) => {
         console.log(response.data);
         setFaskes(response.data);

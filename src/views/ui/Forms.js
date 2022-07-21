@@ -45,7 +45,7 @@ const Forms = () => {
   }, []);
 
   function getData() {
-    axios.get("http://127.0.0.1:8000/api/demografi").then((response) => {
+    axios.get("http://103.183.74.242:8000/api/demografi").then((response) => {
       setData(response.data);
       console.log(response.data);
     });
@@ -55,7 +55,7 @@ const Forms = () => {
     e.preventDefault();
     console.log(TabelCovid);
     axios
-      .post("http://127.0.0.1:8000/api/septemberTabel/input", TabelCovid)
+      .post("http://103.183.74.242:8000/api/septemberTabel/input", TabelCovid)
       .then((res) => {
         console.log(res);
         Swal.fire({

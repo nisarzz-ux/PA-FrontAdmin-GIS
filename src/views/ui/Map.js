@@ -15,8 +15,6 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Breadcrumb,
-  BreadcrumbItem,
   Card,
   CardBody,
   CardSubtitle,
@@ -31,7 +29,6 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import TopCards from "../../components/dashboard/TopCards";
 
-
 import axios from "axios";
 import Moment from "moment";
 import L from "leaflet";
@@ -39,6 +36,7 @@ import L from "leaflet";
 import statesData from "./File-Map/JsonMap/28-tes.json";
 import Bangunan from "./File-Map/JsonMap/bangunan.json";
 import Pemukiman from "./File-Map/JsonMap/Pemukiman.json";
+import KecamatanSurabaya from "./File-Map/JsonMap/Kecamatan-Surabaya.json";
 
 const PopupExample = () => {
   const [september, setSeptember] = useState([]);
@@ -71,6 +69,14 @@ const PopupExample = () => {
 
   // View Using EPSG Map
   const [isEPSGMap, setEPSGMap] = React.useState(false);
+
+  // View Table Result
+  const [isTable, setIsTable] = React.useState(false);
+
+  // Show Menu Table
+  const handleTable = (event) => {
+    setIsTable((current) => !current);
+  };
 
   //Show and Close Menu
   const handleSateliteMap = (event) => {
@@ -129,7 +135,7 @@ const PopupExample = () => {
   function getDataSeptember(filteredDate) {
     axios
       .get(
-        "http://127.0.0.1:8000/api/septemberDate?tanggal=" +
+        "http://103.183.74.242:8000/api/septemberDate?tanggal=" +
           Moment(filteredDate).format("YYYY-MM-DD")
       )
       .then((response) => {
@@ -137,21 +143,6 @@ const PopupExample = () => {
       });
   }
 
-  function getColorLurah(temp) {
-    return temp === "Surabaya Utara" ? (
-      "#F38484"
-    ) : temp === "Surabaya Pusat" ? (
-      "#D597F9"
-    ) : temp === "Surabaya Timur" ? (
-      "#ACC715"
-    ) : temp === "Surabaya Selatan" ? (
-      "#EC9949"
-    ) : temp === "Surabaya Barat" ? (
-      "#4C51EF"
-    ) : (
-      <div></div>
-    );
-  }
   //Clasification About Area
   function getColor(temp) {
     return temp === "Utara" ? (
@@ -171,13 +162,13 @@ const PopupExample = () => {
 
   function getColorCompare(temp) {
     // PPKM Level 1 (Green)
-    if (temp < 1) return "#05b534";
+    if (temp < 20) return "#05b534";
     // PPKM Level 2 (Yellow)
-    else if (temp <= 1) return "#eefa02";
+    else if (temp < 50) return "#eefa02";
     // PPKM Level 3 (Orange)
-    else if (temp >= 2 && temp < 5) return "#fad905";
+    else if (temp >= 50 && temp < 150) return "#fad905";
     // PPKM Level 4 (Red)
-    else if (temp >= 5) return "#fa0202";
+    else if (temp >= 150) return "#fa0202";
   }
 
   //Show the Data of Positive Case
@@ -446,7 +437,7 @@ const PopupExample = () => {
               </DropdownToggle>
               <DropdownMenu>
                 <DropdownItem onClick={handleSateliteMap}>
-                  OpenStreetMap
+                  Satelite Map
                 </DropdownItem>
                 <DropdownItem onClick={handleEPSGMap}>EPSG Map</DropdownItem>
               </DropdownMenu>
@@ -522,8 +513,9 @@ const PopupExample = () => {
           >
             {isSateliteMap && (
               <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/relation/8225862">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
+                maxZoom={20}
+                subdomains={["mt1", "mt2", "mt3"]}
               />
             )}
 
@@ -535,52 +527,54 @@ const PopupExample = () => {
             )}
 
             <TileLayer
-              url="https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
-              maxZoom={20}
-              subdomains={["mt1", "mt2", "mt3"]}
+              attribution='&copy; <a href="https://www.openstreetmap.org/relation/8225862">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
             <LeafletRuler />
 
-            {
-              statesData.features.map((state) => {
-                const coordinates = state.geometry.coordinates[0][0].map(
-                  (item) => [item[1], item[0]]
-                );
-                console.log(coordinates);
-                return (
-                  <Polygon
-                    pathOptions={{
-                      fillColor: getColor(state.properties.Wilayah),
-                      fillOpacity: 0.7,
-                      weight: 2,
-                      opacity: 1,
-                      dashArray: 3,
-                      color: "white",
-                    }}
-                    positions={coordinates}
-                  >
-                    <Popup>
-                      District : {state.properties.KECAMATAN}
-                      <br />
-                      Area : {state.properties.Wilayah}
-                      <br />
-                      Zone : {state.properties.PERIMETER} Km / Square
-                    </Popup>
-                  </Polygon>
-                );
-              })}
+            {statesData.features.map((state) => {
+              const coordinates = state.geometry.coordinates[0][0].map(
+                (item) => [item[1], item[0]]
+              );
+              console.log(coordinates);
+              return (
+                <Polygon
+                  pathOptions={{
+                    fillColor: getColor(state.properties.Wilayah),
+                    fillOpacity: 0.7,
+                    weight: 2,
+                    opacity: 1,
+                    dashArray: 3,
+                    color: "white",
+                  }}
+                  positions={coordinates}
+                >
+                  <Popup>
+                    District : {state.properties.KECAMATAN}
+                    <br />
+                    Area : {state.properties.Wilayah}
+                    <br />
+                    Zone : {state.properties.PERIMETER} Km / Square
+                  </Popup>
+                </Polygon>
+              );
+            })}
 
-            {
-              september.length > 0 &&
+            {september.length > 0 &&
               statesData.features.map((state, index) => {
                 const coordinatesAll = state.geometry.coordinates[0][0].map(
                   (item) => [item[1], item[0]]
                 );
+
+                let total =
+                  september[index].mati +
+                  september[index].rawat +
+                  september[index].positif;
                 return (
                   <Polygon
                     pathOptions={{
-                      fillColor: getColorCompare(september[index].mati),
+                      fillColor: getColorCompare(total),
                       fillOpacity: 0.7,
                       weight: 2,
                       opacity: 1,
@@ -589,17 +583,17 @@ const PopupExample = () => {
                     }}
                     positions={coordinatesAll}
                   >
-                    {september[index].mati < 1 ? (
+                    {total < 20 ? (
                       <Popup>
                         District Name : {state.properties.KECAMATAN} <br />
                         Status Level : PPKM level 1
                       </Popup>
-                    ) : september[index].mati === 1 ? (
+                    ) : total < 50 ? (
                       <Popup>
                         District Name : {state.properties.KECAMATAN} <br />
                         Status Level : PPKM level 2
                       </Popup>
-                    ) : september[index].mati < 5 ? (
+                    ) : total < 150 ? (
                       <Popup>
                         District Name : {state.properties.KECAMATAN} <br />
                         Status Level : PPKM level 3
@@ -712,6 +706,99 @@ const PopupExample = () => {
         >
           View Analysis Recap
         </Button>
+
+        <Button
+          color="info"
+          onClick={handleTable}
+          style={{ width: "auto", marginTop: "2vw", marginLeft: "10px" }}
+        >
+          View Table
+        </Button>
+
+        {isTable && (
+          <div>
+            <div>
+              <Table striped>
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>District Area</th>
+                    <th>Population</th>
+                    <th>Total Case</th>
+                    <th style={{ textAlign: "center" }}>
+                      Ratio Case <br />
+                      Total case : Population
+                    </th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {september.map((row, i) => {
+                    let total = row.positif + row.mati + row.rawat;
+                    let Population =
+                      row.demografi.penduduk_laki +
+                      row.demografi.penduduk_wanita;
+                    return (
+                      <tr>
+                        <th scope="row">{i + 1}</th>
+                        <td>{row.demografi.kecamatan}</td>
+                        <td>{Population}</td>
+                        {/* <td>
+                          Positif          : {row.positif} <br/>
+                          Mati             : {row.mati} <br />
+                          Rawat            : {row.rawat} 
+                        </td> */}
+                        <td>{total}</td>
+                        {total === 0 ? (
+                          <td>0</td>
+                        ) : (
+                          <td>
+                            {total / total} : {Population / total}
+                          </td>
+                        )}
+
+                        {total < 20 ? (
+                          <td>PPKM level 1</td>
+                        ) : total < 50 ? (
+                          <td>PPKM Level 2</td>
+                        ) : total < 150 ? (
+                          <td>PPKM Level 3</td>
+                        ) : (
+                          <td>PPKM Level 4</td>
+                        )}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </Table>
+            </div>
+            {/* <Table striped>
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>District Area</th>
+                  <th>Zone</th>
+                  <th style={{ textAlign: "center" }}>
+                    Area <br />
+                    km/square
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {KecamatanSurabaya.features.map((state, i) => {
+                  return (
+                    <tr>
+                      <th scope="row">{i + 1}</th>
+                      <td>{state.properties.LAYER_1}</td>
+                      <td>{state.properties.WILAYAH}</td>
+                      <td style={{ textAlign: "center" }}>{state.properties.LUAS}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </Table> */}
+          </div>
+        )}
 
         {isShown &&
           (september.length > 0 ? (
